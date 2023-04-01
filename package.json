@@ -45,6 +45,6 @@
 		"prettier": "^2.8.7",
 		"prisma": "^4.11.0",
 		"ts-jest": "^27.0.7",
-		"typescript": "^5.0.2"
+		"typescript": "^5.0.3"
 	}
 }
