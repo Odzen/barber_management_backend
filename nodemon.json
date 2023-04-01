@@ -1,0 +1,5 @@
+{
+	"watch": ["src", "prisma"],
+	"ext": "ts graphql prisma",
+	"exec": "ts-node --transpile-only index.ts"
+}
