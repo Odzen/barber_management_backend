@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
       target: builder
     environment:
-      - DATABASE_URI=postgresql://myuser:mypassword@db:5432/mydatabase?schema=public
+      - DATABASE_URI=${DATABASE_URI}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-      - PORT=8080
+      - PORT=${PORT}
       - CORS_ORIGIN=${CORS_ORIGIN}
     ports:
       - 8080:8080
@@ -24,8 +24,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=mydatabase
-      - POSTGRES_USER=myuser
-      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=barbermanagement_dev_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
     volumes:
       - ./pgdata:/var/lib/postgresql/data
