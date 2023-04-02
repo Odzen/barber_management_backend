@@ -14,6 +14,8 @@ Backend for Barber Managment using:
 
 ## Installation of dependencies
 
+First, you have to enter to the app folder
+
 ```bash
 $ yarn install
 ```
