@@ -13,7 +13,7 @@
 
 ## Installation
 
-    ```bash
+    ```shell
     $ yarn install
     ```
 
@@ -23,7 +23,7 @@ You don't have to install Postgres, Prisma or anything else. Just run the follow
 The first time you run the command, it will take a while to download the docker images.
 The `docker compose` up command creates a postgres database, runs the migrations and saves the data in a volume to make it persistent.
 
-    ```bash
+    ```shell
     # run backend in development mode
     $ docker compose up
     ```
