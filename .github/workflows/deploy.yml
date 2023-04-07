@@ -1,17 +1,10 @@
 name: Deploy to production
 
-# on:
-#   push:
-#     branches:
-#       - infra-githubactions
-
 on:
   push:
     branches:
       - infra-githubactions
 
-needs:
-  - Push
 # run this workflow on push to infra-githubactions branch but only if the Push workflow was successful
 # on:
 #   workflow_run:
