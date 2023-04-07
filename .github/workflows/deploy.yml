@@ -1,12 +1,16 @@
 name: Deploy to production
 
 on:
-  workflow_run:
-    workflows: [Push]
-    branches: infra-githubactions
-    types: 
-      - completed
+  push:
+    branches:
+      - infra-githubactions
 
+# on:
+#   workflow_run:
+#     workflows: [Push]
+#     branches: infra-githubactions
+#     types:
+#       - completed
 
 env:
   REGISTRY_NAME: 'webserver-production-ecr'
