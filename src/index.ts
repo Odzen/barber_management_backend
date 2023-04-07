@@ -41,7 +41,5 @@ export default async function start() {
 	await new Promise<void>((resolve) =>
 		httpServer.listen({ port: port }, resolve)
 	)
-	console.log(
-		`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
-	)
+	console.log(`🚀 Server ready running at ${port}`)
 }
