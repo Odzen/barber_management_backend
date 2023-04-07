@@ -1,6 +1,12 @@
 import { AuthenticationError } from 'apollo-server-express'
-import type { PrismaClient, Avocado, Attributes, Prisma } from '@prisma/client'
-import type { User } from '@prisma/client'
+
+import type {
+	PrismaClient,
+	Avocado,
+	Attributes,
+	Prisma,
+	User,
+} from '@prisma/client'
 
 export type ResolverParent = unknown
 export type ResolverContext = { orm: PrismaClient; user: User | undefined }
