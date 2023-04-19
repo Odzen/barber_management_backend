@@ -1,8 +1,6 @@
-import path from 'path'
-
 import { urlencoded, json } from 'body-parser'
 import cors from 'cors'
-import express, { static as s } from 'express'
+import express from 'express'
 
 import auth, { login, currentUser } from './auth'
 
@@ -16,8 +14,6 @@ app.use(
 		credentials: true,
 	})
 )
-// app.use(cors())
-app.use('/static', s(path.join(__dirname, '../public')))
 app.use(urlencoded({ extended: false }))
 app.use(auth)
 
