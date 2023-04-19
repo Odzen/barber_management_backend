@@ -16,7 +16,6 @@ prompt.get(
 		},
 		{
 			name: 'password',
-			// @ts-ignore outdated types
 			hidden: true,
 			required: true,
 		},
