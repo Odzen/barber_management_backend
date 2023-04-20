@@ -1,0 +1,20 @@
+name: Notifier
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  messageSlack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notification Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: github
+          SLACK_TITLE: Backend
+          SLACK_USERNAME: BotRepo
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: 'Backend has been updated!'

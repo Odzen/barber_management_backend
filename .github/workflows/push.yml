@@ -1,0 +1,63 @@
+name: Push
+
+on: push
+
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+      - name: Cache Modules
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+      - run: yarn prettier
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+      - name: Cache Modules
+        id: yarn-cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+      - run: yarn lint
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+      - name: Cache Modules
+        id: yarn-cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+      - run: yarn build
