@@ -1,12 +1,14 @@
-import { ApolloServer } from 'apollo-server-express'
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
+import { readFileSync } from 'fs'
 import http from 'http'
 import path from 'path'
+
 import { PrismaClient } from '@prisma/client'
-import { readFileSync } from 'fs'
-import resolvers from './resolvers'
-import app from './server'
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
+import { ApolloServer } from 'apollo-server-express'
+
 import { __prod__ } from './constants'
+import resolvers from './resolvers'
+import { app } from './server'
 
 const httpServer = http.createServer(app)
 const typeDefs = readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8')
@@ -39,7 +41,5 @@ export default async function start() {
 	await new Promise<void>((resolve) =>
 		httpServer.listen({ port: port }, resolve)
 	)
-	console.log(
-		`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
-	)
+	console.log(`🚀 Server ready running at ${port}`)
 }

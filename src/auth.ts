@@ -1,8 +1,10 @@
-import type { Request, RequestHandler } from 'express'
+import { TextEncoder } from 'util'
+
 import { PrismaClient } from '@prisma/client'
 import { compare } from 'bcrypt'
-import { TextEncoder } from 'util'
 import { SignJWT, jwtVerify } from 'jose'
+
+import type { Request, RequestHandler } from 'express'
 
 declare global {
 	namespace Express {
@@ -30,7 +32,7 @@ const orm = new PrismaClient()
  *
  * The response will be redirected to the given `redirect` value if any.
  */
-export const login: RequestHandler = async (req, res, _next) => {
+export const login: RequestHandler = async (req, res) => {
 	const { username, password } = req.body
 
 	try {
