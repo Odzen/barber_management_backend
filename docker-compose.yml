@@ -5,10 +5,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - DATABASE_URI=postgresql://odzen:pcGChei6FwiThD8@barbermanagement-dev.chwuf1ghvyp4.us-east-1.rds.amazonaws.com/barbermanagement_dev_db
-      - JWT_SECRET_KEY=asdas
-      - PORT=3000
-      - CORS_ORIGIN=www.cors.com
     ports:
       - 80:3000
