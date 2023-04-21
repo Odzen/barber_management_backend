@@ -1,17 +1,14 @@
 version: '3'
 
-# deploy
 services:
   deployment-prod:
     build:
       context: .
       dockerfile: Dockerfile
-      env_file:
-        - .env
-    # environment:
-    #   - DATABASE_URI=${DATABASE_URI}
-    #   - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-    #   - PORT=${PORT}
-    #   - CORS_ORIGIN=${CORS_ORIGIN}
+    environment:
+      - DATABASE_URI=postgresql://odzen:pcGChei6FwiThD8@barbermanagement-dev.chwuf1ghvyp4.us-east-1.rds.amazonaws.com/barbermanagement_dev_db
+      - JWT_SECRET_KEY=asdas
+      - PORT=3000
+      - CORS_ORIGIN=www.cors.com
     ports:
       - 80:3000
