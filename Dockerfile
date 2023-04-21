@@ -40,5 +40,5 @@ RUN touch .env
 RUN chown node:node .env
 
 USER node
-EXPOSE 8080
+EXPOSE 80
 CMD printf "%s" "$ENV_FILE" > .env && yarn start

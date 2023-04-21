@@ -10,4 +10,4 @@ services:
       - JWT_SECRET_KEY=asdas
       - CORS_ORIGIN=www.cors.com
     ports:
-      - 8080:8080
+      - 80:80

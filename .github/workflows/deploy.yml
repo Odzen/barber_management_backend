@@ -49,6 +49,10 @@ jobs:
         shell: bash
         run: echo "TAG_DEPLOY=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
 
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.36.0
         env:
