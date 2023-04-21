@@ -45,6 +45,10 @@ jobs:
     needs: [deploy]
     runs-on: ubuntu-latest
     steps:
+      - name: Set Version deploy
+        shell: bash
+        run: echo "TAG_DEPLOY=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.36.0
         env:
