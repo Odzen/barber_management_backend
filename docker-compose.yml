@@ -5,5 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DATABASE_URI=${DATABASE_URI}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - PORT=${PORT}
+      - CORS_ORIGIN=${CORS_ORIGIN}
     ports:
       - 80:3000
