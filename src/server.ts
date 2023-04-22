@@ -22,7 +22,7 @@ app.post('/api/login', json(), login)
 app.get('/api/user/current', currentUser)
 
 app.get('/', (_req, res) => {
-	res.send('Hello from Barber API')
+	res.send('Hello from Barber API Production!')
 })
 
 export default app
