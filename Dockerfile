@@ -37,5 +37,5 @@ COPY --from=builder --chown=node:node /usr/src/app/dist ./dist
 ENV NODE_ENV production
 
 USER node
-EXPOSE 3000
+EXPOSE 80
 CMD ["yarn", "start"]

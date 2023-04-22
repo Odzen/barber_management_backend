@@ -11,7 +11,7 @@ name: Deploy to AWS
 
 on:
   push:
-    branches: infra-elastic
+    branches: infra-eb-2
 
 jobs:
   deploy:
@@ -22,23 +22,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x .git/\* node_modules/\* .vscode/\* .prettierrc .eslintrc .gitignore .env\*
+      # - name: Generate deployment package
+      #   run: zip -r deploy.zip . -x .git/\* node_modules/\* .vscode/\* .prettierrc .eslintrc .gitignore .env\*
 
-      - name: Set Version deploy
-        shell: bash
-        run: echo "TAG_DEPLOY=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+      # - name: Set Version deploy
+      #   shell: bash
+      #   run: echo "TAG_DEPLOY=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
 
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v21
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID_PRODUCTION }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PRODUCTION }}
-          application_name: api
-          environment_name: Api-env
-          version_label: 'api-deployment-${{ env.TAG_DEPLOY }}'
-          region: ${{ secrets.AWS_REGION_PRODUCTION }}
-          deployment_package: deploy.zip
+      # - name: Deploy to EB
+      #   uses: einaregilsson/beanstalk-deploy@v21
+      #   with:
+      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID_PRODUCTION }}
+      #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PRODUCTION }}
+      #     application_name: api
+      #     environment_name: Api-env
+      #     version_label: 'api-deployment-${{ env.TAG_DEPLOY }}'
+      #     region: ${{ secrets.AWS_REGION_PRODUCTION }}
+      #     deployment_package: deploy.zip
 
   tags:
     name: Tag the deployment
