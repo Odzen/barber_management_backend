@@ -1,5 +1,5 @@
 branch-defaults:
-  main:
+  infra-eb-2:
     environment: barber-management-backend-dev
     group_suffix: null
 global:

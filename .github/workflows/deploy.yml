@@ -1,17 +1,17 @@
 name: Deploy to AWS
 
-# on:
-#   workflow_run:
-#     workflows: [Push]
-#     branches: infra-elastic
-#     types:
-#       - completed
-#     status:
-#       - success
-
 on:
-  push:
+  workflow_run:
+    workflows: [Push]
     branches: infra-eb-2
+    types:
+      - completed
+    status:
+      - success
+
+# on:
+#   push:
+#     branches: infra-eb-2
 
 jobs:
   deploy:
