@@ -6,8 +6,6 @@ on:
     branches: infra-eb-2
     types:
       - completed
-    status:
-      - success
 
 # on:
 #   push:
