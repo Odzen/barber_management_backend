@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy to EB
         run: |
-          eb deploy
+          sudo eb deploy
 
   tags:
     name: Tag the deployment
