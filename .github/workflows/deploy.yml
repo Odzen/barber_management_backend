@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize]
   push:
     branches:
-      - infra-eb-2
+      - main
 
 jobs:
   prettier:
