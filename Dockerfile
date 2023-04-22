@@ -34,11 +34,7 @@ RUN yarn build
 FROM base AS production
 COPY --from=pruned-dependencies --chown=node:node /usr/src/app/node_modules ./node_modules
 COPY --from=builder --chown=node:node /usr/src/app/dist ./dist
-ENV NODE_ENV production
-
-RUN touch .env
-RUN chown node:node .env
 
 USER node
-EXPOSE 8080
-CMD printf "%s" "$ENV_FILE" > .env && yarn start
+EXPOSE 3000
+CMD ["yarn", "start"]
