@@ -37,3 +37,94 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+
+//Real models
+model Role {
+  id            Int             @id @default(autoincrement())
+  name          String
+  Administrator Administrator[]
+  Barber        Barber[]
+  Customer      Customer[]
+}
+
+model State {
+  id            Int             @id @default(autoincrement())
+  name          String
+  Administrator Administrator[]
+  Barber        Barber[]
+  Customer      Customer[]
+}
+
+model Service {
+  id          Int           @id @default(autoincrement())
+  name        String
+  price       String
+  Appointment Appointment[]
+}
+
+model Administrator {
+  id              Int          @id @default(autoincrement())
+  name            String
+  document_number String
+  phone           String
+  birth_date      DateTime
+  url_img         String
+  email           String       @unique
+  stateId         Int
+  state           State        @relation(fields: stateId, references: id)
+  roleId          Int
+  role            Role         @relation(fields: [roleId], references: [id])
+  Engagement      Engagement[]
+}
+
+model Barber {
+  id              Int           @id @default(autoincrement())
+  name            String
+  document_number String
+  phone           String
+  birth_date      DateTime
+  url_img         String
+  email           String        @unique
+  state           State         @relation(fields: [stateId], references: [id])
+  stateId         Int
+  role            Role          @relation(fields: [roleId], references: [id])
+  roleId          Int
+  Appointment     Appointment[]
+  Engagement      Engagement[]
+}
+
+model Customer {
+  id              Int           @id @default(autoincrement())
+  name            String
+  document_number String
+  phone           String
+  birth_date      DateTime
+  url_img         String
+  email           String        @unique
+  state           State         @relation(fields: [stateId], references: [id])
+  stateId         Int
+  role            Role          @relation(fields: [roleId], references: [id])
+  roleId          Int
+  Appointment     Appointment[]
+}
+
+model Engagement {
+  administratorId Int
+  administrator   Administrator @relation(fields: [administratorId], references: [id])
+  barberId        Int
+  barber          Barber        @relation(fields: [barberId], references: [id])
+  salary          Int
+  @@id([administratorId, barberId])
+}
+
+model Appointment {
+  customerId       Int
+  customer         Customer @relation(fields: [customerId], references: [id])
+  barberId         Int
+  barber           Barber   @relation(fields: [barberId], references: [id])
+  serviceId        Int
+  service          Service  @relation(fields: [serviceId], references: [id])
+  customer_name    String
+  appointment_date DateTime
+  @@id([customerId, barberId])
+}
