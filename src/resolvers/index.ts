@@ -1,24 +1,24 @@
-import * as avo from './avocado.resolver'
-import * as scalars from './scalars'
+// import * as avo from './avocado.resolver'
+// import * as scalars from './scalars'
 
-import type { Avocado } from '@prisma/client'
+// import type { Avocado } from '@prisma/client'
 
-export default {
-	...scalars,
-	BaseModel: {
-		__resolveType: (parent: Avocado) => {
-			if (parent.name) {
-				return 'Avocado'
-			}
-			return null // No more implementations
-		},
-	},
-	Query: {
-		avo: avo.findOne,
-		avos: avo.findAll,
-	},
-	Mutation: {
-		createAvo: avo.createAvo,
-	},
-	Avocado: avo.resolver,
-}
+// export default {
+// 	...scalars,
+// 	BaseModel: {
+// 		__resolveType: (parent: Avocado) => {
+// 			if (parent.name) {
+// 				return 'Avocado'
+// 			}
+// 			return null // No more implementations
+// 		},
+// 	},
+// 	Query: {
+// 		avo: avo.findOne,
+// 		avos: avo.findAll,
+// 	},
+// 	Mutation: {
+// 		createAvo: avo.createAvo,
+// 	},
+// 	Avocado: avo.resolver,
+// }
