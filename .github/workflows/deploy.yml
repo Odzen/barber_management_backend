@@ -1,11 +1,20 @@
 name: Deploy to AWS
 
+# on:
+#   workflow_run:
+#     workflows: [Push]
+#     branches: infra-eb-2
+#     types:
+#       - completed
+
 on:
-  workflow_run:
-    workflows: [Push]
-    branches: infra-eb-2
-    types:
-      - completed
+  check_suite:
+    types: [completed]
+    # Only trigger for the "Push" workflow on the infra-eb-2 branch
+    branches:
+      - infra-eb-2
+    # Only trigger if the "Push" workflow completed successfully
+    status: success
 
 # on:
 #   push:
