@@ -65,10 +65,10 @@ model Service {
 model Administrator {
   id              Int          @id @default(autoincrement())
   name            String
-  document_number String
-  phone           String
-  birth_date      DateTime
-  url_img         String
+  documentNumber String       @unique
+  phone           String       @unique
+  birthDate      DateTime
+  urlImg         String
   email           String       @unique
   stateId         Int
   state           State        @relation(fields: stateId, references: id)
@@ -80,10 +80,10 @@ model Administrator {
 model Barber {
   id              Int           @id @default(autoincrement())
   name            String
-  document_number String
-  phone           String
-  birth_date      DateTime
-  url_img         String
+  documentNumber String        @unique
+  phone           String        @unique
+  birthDate      DateTime
+  urlImg         String
   email           String        @unique
   state           State         @relation(fields: [stateId], references: [id])
   stateId         Int
@@ -96,10 +96,10 @@ model Barber {
 model Customer {
   id              Int           @id @default(autoincrement())
   name            String
-  document_number String
-  phone           String
-  birth_date      DateTime
-  url_img         String
+  documentNumber String        @unique
+  phone           String        @unique
+  birthDate      DateTime
+  urlImg         String
   email           String        @unique
   state           State         @relation(fields: [stateId], references: [id])
   stateId         Int
@@ -124,7 +124,6 @@ model Appointment {
   barber           Barber   @relation(fields: [barberId], references: [id])
   serviceId        Int
   service          Service  @relation(fields: [serviceId], references: [id])
-  customer_name    String
-  appointment_date DateTime
+  appointmentDate DateTime
   @@id([customerId, barberId])
 }
