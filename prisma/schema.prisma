@@ -9,7 +9,7 @@ generator client {
 }
 
 model Avocado {
-  id        String       @id @default(uuid())
+  id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
@@ -22,90 +22,91 @@ model Avocado {
 }
 
 model Attributes {
-  id          String     @id @default(uuid())
+  id          String  @id @default(uuid())
   description String?
   shape       String?
   hardiness   String?
   taste       String?
   avocado     Avocado @relation(fields: [avocadoId], references: [id])
-  avocadoId   String @unique
+  avocadoId   String  @unique
 }
 
 model User {
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   username  String   @unique
   password  String
   createdAt DateTime @default(now())
 }
 
 //Real models
-model Role {
-  id            Int             @id @default(autoincrement())
-  name          String
-  Administrator Administrator[]
-  Barber        Barber[]
-  Customer      Customer[]
+
+enum ROLE {
+  ADMIN
+  BARBER
+  CUSTOMER
 }
 
-model State {
-  id            Int             @id @default(autoincrement())
-  name          String
-  Administrator Administrator[]
-  Barber        Barber[]
-  Customer      Customer[]
+enum STATE {
+  ACTIVE
+  INACTIVE
+}
+
+enum APPOINTMENTE_STATE {
+  CANCELED
+  SCHEDULE
+  DONE
+}
+
+enum SERVICE {
+  HAIRCUT
+  BEARD
 }
 
 model Service {
   id          Int           @id @default(autoincrement())
-  name        String
-  price       String
+  name        SERVICE       @default(HAIRCUT)
+  price       Int
   Appointment Appointment[]
 }
 
 model Administrator {
-  id              Int          @id @default(autoincrement())
-  name            String
+  id             Int          @id @default(autoincrement())
+  name           String
   documentNumber String       @unique
-  phone           String       @unique
+  phone          String       @unique
   birthDate      DateTime
-  urlImg         String
-  email           String       @unique
-  stateId         Int
-  state           State        @relation(fields: stateId, references: id)
-  roleId          Int
-  role            Role         @relation(fields: [roleId], references: [id])
-  Engagement      Engagement[]
+  urlImg         String?
+  email          String       @unique
+  state          STATE        @default(ACTIVE)
+  role           ROLE         @default(CUSTOMER)
+  Engagement     Engagement[]
 }
 
 model Barber {
-  id              Int           @id @default(autoincrement())
-  name            String
+  id             Int           @id @default(autoincrement())
+  name           String
   documentNumber String        @unique
-  phone           String        @unique
+  phone          String        @unique
   birthDate      DateTime
-  urlImg         String
-  email           String        @unique
-  state           State         @relation(fields: [stateId], references: [id])
-  stateId         Int
-  role            Role          @relation(fields: [roleId], references: [id])
-  roleId          Int
-  Appointment     Appointment[]
-  Engagement      Engagement[]
+  urlImg         String?
+  email          String        @unique
+  state          STATE         @default(ACTIVE)
+  role           ROLE          @default(CUSTOMER)
+  Appointment    Appointment[]
+  Engagement     Engagement[]
 }
 
 model Customer {
-  id              Int           @id @default(autoincrement())
-  name            String
+  id             Int           @id @default(autoincrement())
+  name           String
   documentNumber String        @unique
-  phone           String        @unique
+  phone          String        @unique
   birthDate      DateTime
-  urlImg         String
-  email           String        @unique
-  state           State         @relation(fields: [stateId], references: [id])
-  stateId         Int
-  role            Role          @relation(fields: [roleId], references: [id])
-  roleId          Int
-  Appointment     Appointment[]
+  urlImg         String?
+  email          String        @unique
+  state          STATE         @default(ACTIVE)
+  role           ROLE          @default(CUSTOMER)
+  Appointment    Appointment[]
 }
 
 model Engagement {
@@ -114,16 +115,19 @@ model Engagement {
   barberId        Int
   barber          Barber        @relation(fields: [barberId], references: [id])
   salary          Int
+
   @@id([administratorId, barberId])
 }
 
 model Appointment {
-  customerId       Int
-  customer         Customer @relation(fields: [customerId], references: [id])
-  barberId         Int
-  barber           Barber   @relation(fields: [barberId], references: [id])
-  serviceId        Int
-  service          Service  @relation(fields: [serviceId], references: [id])
+  customerId      Int
+  customer        Customer @relation(fields: [customerId], references: [id])
+  barberId        Int
+  barber          Barber   @relation(fields: [barberId], references: [id])
+  serviceId       Int
+  service         Service  @relation(fields: [serviceId], references: [id])
   appointmentDate DateTime
+  state           APPOINTMENTE_STATE         @default(SCHEDULE)
+
   @@id([customerId, barberId])
 }
