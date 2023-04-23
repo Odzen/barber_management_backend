@@ -28,13 +28,13 @@ The `docker compose` up command creates a postgres database, runs the migrations
 
 ```bash
 # run backend in development mode
-$ docker compose up
+$ docker compose -f docker-compose-development.yml up
 ```
 
 To stop and remove containers, networks
 
 ```bash
-$ docker compose down
+$ docker compose -f docker-compose-development.yml down
 ```
 
 ## Database instructions
