@@ -31,13 +31,6 @@ model Attributes {
   avocadoId   String  @unique
 }
 
-model User {
-  id        String   @id @default(uuid())
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-}
-
 //Real models
 
 enum ROLE {
@@ -53,7 +46,7 @@ enum STATE {
 
 enum APPOINTMENTE_STATE {
   CANCELED
-  SCHEDULE
+  SCHEDULED
   DONE
 }
 
@@ -66,68 +59,50 @@ model Service {
   id          Int           @id @default(autoincrement())
   name        SERVICE       @default(HAIRCUT)
   price       Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
   Appointment Appointment[]
 }
 
-model Administrator {
-  id             Int          @id @default(autoincrement())
-  name           String
-  documentNumber String       @unique
-  phone          String       @unique
-  birthDate      DateTime
-  urlImg         String?
-  email          String       @unique
-  state          STATE        @default(ACTIVE)
-  role           ROLE         @default(CUSTOMER)
-  Engagement     Engagement[]
-}
-
-model Barber {
-  id             Int           @id @default(autoincrement())
-  name           String
-  documentNumber String        @unique
-  phone          String        @unique
-  birthDate      DateTime
-  urlImg         String?
-  email          String        @unique
-  state          STATE         @default(ACTIVE)
-  role           ROLE          @default(CUSTOMER)
-  Appointment    Appointment[]
-  Engagement     Engagement[]
-}
-
-model Customer {
-  id             Int           @id @default(autoincrement())
-  name           String
-  documentNumber String        @unique
-  phone          String        @unique
-  birthDate      DateTime
-  urlImg         String?
-  email          String        @unique
-  state          STATE         @default(ACTIVE)
-  role           ROLE          @default(CUSTOMER)
-  Appointment    Appointment[]
+model User {
+  id                  Int           @id @default(autoincrement())
+  name                String
+  documentNumber      String        @unique
+  phone               String        @unique
+  birthDate           DateTime
+  urlImg              String?
+  email               String        @unique
+  state               STATE         @default(ACTIVE)
+  role                ROLE          @default(CUSTOMER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  EngagementBarber    Engagement[]  @relation("barber")
+  EngagementAdmin     Engagement[]  @relation("administrator")
+  AppointmentBarber   Appointment[] @relation("barber")
+  AppointmentCustomer Appointment[] @relation("customer")
 }
 
 model Engagement {
   administratorId Int
-  administrator   Administrator @relation(fields: [administratorId], references: [id])
+  administrator   User @relation("administrator", fields: [administratorId], references: [id])
   barberId        Int
-  barber          Barber        @relation(fields: [barberId], references: [id])
+  barber          User @relation("barber", fields: [barberId], references: [id])
   salary          Int
-
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
   @@id([administratorId, barberId])
 }
 
 model Appointment {
   customerId      Int
-  customer        Customer @relation(fields: [customerId], references: [id])
+  customer        User               @relation("customer", fields: [customerId], references: [id])
   barberId        Int
-  barber          Barber   @relation(fields: [barberId], references: [id])
+  barber          User               @relation("barber", fields: [barberId], references: [id])
   serviceId       Int
-  service         Service  @relation(fields: [serviceId], references: [id])
+  service         Service            @relation(fields: [serviceId], references: [id])
   appointmentDate DateTime
-  state           APPOINTMENTE_STATE         @default(SCHEDULE)
-
+  state           APPOINTMENTE_STATE @default(SCHEDULED)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
   @@id([customerId, barberId])
 }
