@@ -16,14 +16,15 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+      - /usr/src/app/node_modules/bcrypt/
     depends_on:
       - db
-    command: sh -c "npx prisma migrate dev && yarn dev"
+    command: sh -c "npx prisma migrate dev --name "init" && yarn dev"
 
   db:
     image: postgres:15.2-alpine
     ports:
-      - 5432:5432
+      - 6543:5432
     environment:
       - POSTGRES_DB=barbermanagement_dev_db
       - POSTGRES_USER=user

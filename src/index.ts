@@ -24,7 +24,8 @@ export default async function start() {
 	const server = new ApolloServer({
 		typeDefs,
 		resolvers,
-		context: ({ req }) => ({ orm, user: req.user }),
+		context: () => ({ orm }),
+		// context: ({ req }) => ({ orm, user: req.user }),
 		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 		// cache: 'bounded',
 	})
