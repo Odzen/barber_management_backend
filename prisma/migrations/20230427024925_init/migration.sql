@@ -58,6 +58,7 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "state" "STATE" NOT NULL DEFAULT 'ACTIVE',
     "role" "ROLE" NOT NULL DEFAULT 'CUSTOMER',
+    "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
