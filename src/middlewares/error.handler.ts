@@ -38,8 +38,4 @@ function boomErrorHandler(
 	return next(err)
 }
 
-export const errorMiddleware = {
-	logErrors,
-	errorHandler,
-	boomErrorHandler,
-}
+export { logErrors, errorHandler, boomErrorHandler }

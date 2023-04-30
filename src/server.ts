@@ -3,7 +3,11 @@ import cors from 'cors'
 import express, { json } from 'express'
 
 import { __prod__ } from './constants'
-import { errorMiddleware } from './middlewares/error.handler'
+import {
+	logErrors,
+	boomErrorHandler,
+	errorHandler,
+} from './middlewares/error.handler'
 import routerApi from './routes'
 
 const app = express()
@@ -26,8 +30,8 @@ app.get('/', (_req, res) => {
 routerApi(app)
 app.use('/api', routerApi)
 
-app.use(errorMiddleware.logErrors)
-app.use(errorMiddleware.boomErrorHandler)
-app.use(errorMiddleware.errorHandler)
+app.use(logErrors)
+app.use(boomErrorHandler)
+app.use(errorHandler)
 
 export default app
