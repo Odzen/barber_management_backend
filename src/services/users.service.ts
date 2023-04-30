@@ -1,3 +1,5 @@
+import { notFound } from '@hapi/boom'
+
 class UsersService {
 	constructor() {
 		this.users = []
@@ -12,7 +14,11 @@ class UsersService {
 	}
 
 	findOne(id) {
-		return this.users.find((user) => user.id === id)
+		const user = this.users.find((user) => user.id === id)
+		if (!user) {
+			throw notFound('User not found')
+		}
+		return user
 	}
 }
 

@@ -13,10 +13,14 @@ router.get('/', (_req, res) => {
 	})
 })
 
-router.get('/:id', (req, res) => {
-	const { id } = req.params
-	const user = userService.findOne(parseInt(id))
-	res.json(user)
+router.get('/:id', (req, res, next) => {
+	try {
+		const { id } = req.params
+		const user = userService.findOne(parseInt(id))
+		res.json(user)
+	} catch (error) {
+		next(error)
+	}
 })
 
 router.post('/', (req, res) => {

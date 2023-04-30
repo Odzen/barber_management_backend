@@ -19,6 +19,7 @@
 		"package.json": "sort-package-json"
 	},
 	"dependencies": {
+		"@hapi/boom": "^10.0.1",
 		"@prisma/client": "^4.11.0",
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^6.0.0-alpha.120",
@@ -41,6 +42,7 @@
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",
+		"@types/boom": "^7.3.2",
 		"@types/jest": "^27.0.x",
 		"@types/prompt": "^1.1.1",
 		"easygraphql-tester": "^6.0.1",

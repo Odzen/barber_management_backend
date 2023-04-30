@@ -2,7 +2,7 @@ import { Application } from 'express'
 
 import users from './users.router'
 
-function routerApi(app: Application) {
+function routerApi(app: any) {
 	app.use('/api/users', users)
 }
 

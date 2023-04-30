@@ -3,6 +3,7 @@ import cors from 'cors'
 import express, { json } from 'express'
 
 import { __prod__ } from './constants'
+import { errorMiddleware } from './middlewares/error.handler'
 import routerApi from './routes'
 
 const app = express()
@@ -22,10 +23,11 @@ app.get('/', (_req, res) => {
 	res.send(`Hello from Barber API ${__prod__ ? 'Production' : 'Development'}!`)
 })
 
-// I want for all the routes to be under /api
-
 routerApi(app)
-
 app.use('/api', routerApi)
+
+app.use(errorMiddleware.logErrors)
+app.use(errorMiddleware.boomErrorHandler)
+app.use(errorMiddleware.errorHandler)
 
 export default app
