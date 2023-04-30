@@ -12,7 +12,8 @@
 		"copyFiles": "copyfiles src/schema.graphql public/* ./dist",
 		"dev": "nodemon index.ts",
 		"lint": "eslint \"src/**/*.ts\"",
-		"prettier": "prettier \"src/**/*.ts\""
+		"prettier": "prettier \"src/**/*.ts\"",
+		"migrate": "prisma migrate dev --name \"init\" --preview-feature"
 	},
 	"lint-staged": {
 		"**/*": "yarn lint",
@@ -34,6 +35,7 @@
 		"express": "^4.17.1",
 		"gen-env-types": "^1.3.4",
 		"graphql": "^15.6.1",
+		"joi": "^17.9.2",
 		"jose": "^4.3.7",
 		"nodemon": "^2.0.13",
 		"prompt": "^1.2.0",

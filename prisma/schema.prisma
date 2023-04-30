@@ -56,7 +56,7 @@ enum SERVICE {
 }
 
 model Service {
-  id          Int           @id @default(autoincrement())
+  id          String        @id @default(uuid())
   name        SERVICE       @default(HAIRCUT)
   price       Int
   createdAt DateTime  @default(now())
@@ -65,7 +65,7 @@ model Service {
 }
 
 model User {
-  id                  Int           @id @default(autoincrement())
+  id                  String        @id @default(uuid())
   name                String
   documentNumber      String        @unique
   phone               String        @unique
@@ -84,26 +84,26 @@ model User {
 }
 
 model Engagement {
-  administratorId Int
+  administratorId String
   administrator   User @relation("administrator", fields: [administratorId], references: [id])
-  barberId        Int
+  barberId        String
   barber          User @relation("barber", fields: [barberId], references: [id])
-  salary          Int
+  salary          Decimal
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   @@id([administratorId, barberId])
 }
 
 model Appointment {
-  customerId      Int
+  id              String             @id @default(uuid())
+  customerId      String
   customer        User               @relation("customer", fields: [customerId], references: [id])
-  barberId        Int
+  barberId        String
   barber          User               @relation("barber", fields: [barberId], references: [id])
-  serviceId       Int
+  serviceId       String
   service         Service            @relation(fields: [serviceId], references: [id])
   appointmentDate DateTime
   state           APPOINTMENT_STATE @default(SCHEDULED)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  @@id([customerId, barberId])
 }
