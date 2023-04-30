@@ -6,16 +6,11 @@ const id = Joi.string().uuid()
 const name = Joi.string().min(3).max(30)
 const documentNumber = Joi.string().min(3).max(30)
 const phone = Joi.string().min(3).max(30)
-const birthDate = Joi.date()
+const birthDate = Joi.date().iso()
 const urlImage = Joi.string().uri()
 const email = Joi.string().email()
-const role = Joi.object().keys({
-	role: Joi.string().valid('ADMIN', 'BARBER', 'CUSTOMER'),
-})
-
-const state = Joi.object().keys({
-	state: Joi.string().valid('ACTIVE', 'INACTIVE'),
-})
+const role = Joi.string().valid('ADMIN', 'BARBER', 'CUSTOMER')
+const state = Joi.string().valid('ACTIVE', 'INACTIVE')
 const password = Joi.string().min(6).max(30)
 
 const createUserSchema = Joi.object({

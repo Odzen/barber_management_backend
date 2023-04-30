@@ -1,5 +1,11 @@
 import { Router } from 'express'
 
+import validationHandler from '../middlewares/validator.handler'
+import {
+	getUserSchema,
+	updateUserSchema,
+	createUserSchema,
+} from '../schemas/user.schema'
 import UsersService from '../services/users.service'
 
 const router = Router()
@@ -13,17 +19,21 @@ router.get('/', (_req, res) => {
 	})
 })
 
-router.get('/:id', (req, res, next) => {
-	try {
-		const { id } = req.params
-		const user = userService.findOne(parseInt(id))
-		res.json(user)
-	} catch (error) {
-		next(error)
+router.get(
+	'/:id',
+	validationHandler(getUserSchema, 'params'),
+	(req, res, next) => {
+		try {
+			const { id } = req.params
+			const user = userService.findOne(parseInt(id))
+			res.json(user)
+		} catch (error) {
+			next(error)
+		}
 	}
-})
+)
 
-router.post('/', (req, res) => {
+router.post('/', validationHandler(createUserSchema, 'body'), (req, res) => {
 	const body = req.body
 	res.json({
 		message: 'created',
