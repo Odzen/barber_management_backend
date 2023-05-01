@@ -1,25 +1,39 @@
 import { notFound } from '@hapi/boom'
+import { PrismaClient, User } from '@prisma/client'
 
-class UsersService {
-	constructor() {
-		this.users = []
+// CRUD for Users table using ORM Prisma and Classes
+
+export class UsersService {
+	constructor(private prisma: PrismaClient) {}
+
+	async findMany() {
+		return await this.prisma.user.findMany()
 	}
 
-	create(user: any) {
-		this.users.push(user)
-	}
-
-	find() {
-		return this.users
-	}
-
-	findOne(id: string) {
-		const user = this.users.find((user) => user.id === id)
-		if (!user) {
-			throw notFound('User not found')
-		}
+	async findOne(id: string) {
+		const user = await this.prisma.user.findUnique({
+			where: { id },
+		})
+		if (!user) throw notFound('user not found')
 		return user
 	}
-}
 
-export default UsersService
+	async create(user: User) {
+		return await this.prisma.user.create({
+			data: user,
+		})
+	}
+
+	async update(id: string, user: User) {
+		return await this.prisma.user.update({
+			where: { id },
+			data: user,
+		})
+	}
+
+	async delete(id: string) {
+		return await this.prisma.user.delete({
+			where: { id },
+		})
+	}
+}

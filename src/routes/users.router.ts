@@ -25,7 +25,7 @@ router.get(
 	(req, res, next) => {
 		try {
 			const { id } = req.params
-			const user = userService.findOne(parseInt(id))
+			const user = userService.findOne(id)
 			res.json(user)
 		} catch (error) {
 			next(error)
