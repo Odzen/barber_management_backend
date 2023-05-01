@@ -13,11 +13,22 @@ import routerApi from './routes'
 
 const app = express()
 
-const whiteList = process.env.CORS_ORIGINS
+const whiteList = process.env.CORS_ORIGINS?.split(' ') || []
 
 const options = {
 	origin: (origin: any, callback: any) => {
-		if (whiteList.includes(origin) || !origin) {
+		// case for clients like postman
+		if (!origin) {
+			callback(null, true)
+			return
+		}
+
+		if (whiteList.length === 0 || whiteList[0].length === 0)
+			callback(new Error('Whitelist is empty'))
+
+		const allowed = whiteList.some((domain) => origin.includes(domain))
+
+		if (allowed) {
 			callback(null, true)
 		} else {
 			callback(new Error('Not allowed by CORS'))
