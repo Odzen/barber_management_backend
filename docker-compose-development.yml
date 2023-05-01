@@ -19,8 +19,7 @@ services:
       - /usr/src/app/node_modules/bcrypt/
     depends_on:
       - db
-    command: sh -c "yarn migrate && yarn dev"
-    tty: true # can enable the prisma migrate dev command to run interactively within the container
+    command: yarn dev
 
   db:
     image: postgres:15.2-alpine

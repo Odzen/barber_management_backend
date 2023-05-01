@@ -41,4 +41,14 @@ const getUserSchema = Joi.object({
 	id: id.required(),
 })
 
-export { createUserSchema, updateUserSchema, getUserSchema }
+const skip = Joi.number().integer()
+const take = Joi.number().integer()
+const orderBy = Joi.string().valid('createdAt', 'birthDate')
+
+const queryUserSchema = Joi.object({
+	skip,
+	take,
+	orderBy,
+})
+
+export { createUserSchema, updateUserSchema, getUserSchema, queryUserSchema }

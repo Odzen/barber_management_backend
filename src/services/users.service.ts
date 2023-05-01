@@ -1,13 +1,23 @@
 import { notFound } from '@hapi/boom'
 import { PrismaClient, User } from '@prisma/client'
 
-// CRUD for Users table using ORM Prisma and Classes
+interface Options {
+	skip?: number
+	take?: number
+	orderBy?: {
+		[key: string]: 'asc' | 'desc'
+	}
+}
 
-export class UsersService {
-	constructor(private prisma: PrismaClient) {}
+export default class UsersService {
+	private prisma: PrismaClient
 
-	async findMany() {
-		return await this.prisma.user.findMany()
+	constructor() {
+		this.prisma = new PrismaClient()
+	}
+
+	async findMany(options: Options) {
+		return await this.prisma.user.findMany(options)
 	}
 
 	async findOne(id: string) {
