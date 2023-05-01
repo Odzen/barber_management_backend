@@ -13,14 +13,22 @@ import routerApi from './routes'
 
 const app = express()
 
+const whiteList = process.env.CORS_ORIGINS
+
+const options = {
+	origin: (origin: any, callback: any) => {
+		if (whiteList.includes(origin) || !origin) {
+			callback(null, true)
+		} else {
+			callback(new Error('Not allowed by CORS'))
+		}
+	},
+	credentials: true,
+}
+
 // Middlewares
 app.set('proxy', 1)
-app.use(
-	cors({
-		origin: process.env.CORS_ORIGIN,
-		credentials: true,
-	})
-)
+app.use(cors(options))
 app.use(morgan('dev'))
 app.use(urlencoded({ extended: false }))
 app.use(json())
