@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     command: sh -c "yarn migrate && yarn dev"
-    tty: true
+    tty: true # can enable the prisma migrate dev command to run interactively within the container
 
   db:
     image: postgres:15.2-alpine

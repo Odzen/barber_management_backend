@@ -13,7 +13,7 @@ class UsersService {
 		return this.users
 	}
 
-	findOne(id) {
+	findOne(id: string) {
 		const user = this.users.find((user) => user.id === id)
 		if (!user) {
 			throw notFound('User not found')
