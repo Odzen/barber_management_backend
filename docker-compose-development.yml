@@ -10,7 +10,7 @@ services:
       - DATABASE_URI=${DATABASE_URI}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - PORT=${PORT}
-      - CORS_ORIGIN=${CORS_ORIGIN}
+      - CORS_ORIGINS=${CORS_ORIGINS}
     ports:
       - 8080:8080
     volumes:
@@ -19,7 +19,8 @@ services:
       - /usr/src/app/node_modules/bcrypt/
     depends_on:
       - db
-    command: sh -c "npx prisma migrate dev --name "init" && yarn dev"
+    command: sh -c "yarn migrate && yarn dev"
+    tty: true
 
   db:
     image: postgres:15.2-alpine
