@@ -13,10 +13,8 @@ const localStrategy = new LocalStrategy(
 	},
 	async (email, password, done) => {
 		try {
-			console.log('Local Strategy: ')
 			const user = await userService.findByEmail(email)
 			if (!user) {
-				console.log('NOT USER')
 				return done(unauthorized('invalid email or password'), false)
 			}
 

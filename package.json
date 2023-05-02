@@ -13,7 +13,8 @@
 		"dev": "nodemon index.ts",
 		"lint": "eslint \"src/**/*.ts\"",
 		"prettier": "prettier \"src/**/*.ts\"",
-		"migrate": "prisma migrate dev --name \"init\" --preview-feature"
+		"migrate": "prisma migrate dev --name \"init\" --preview-feature",
+		"test:unit": "jest --verbose ./__tests__"
 	},
 	"lint-staged": {
 		"**/*": "yarn lint",
