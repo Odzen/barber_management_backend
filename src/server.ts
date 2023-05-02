@@ -2,7 +2,6 @@ import { urlencoded } from 'body-parser'
 import cors from 'cors'
 import express, { json } from 'express'
 import morgan from 'morgan'
-// import passport from 'passport'
 
 import { __prod__ } from './constants'
 import {
@@ -45,7 +44,6 @@ app.use(morgan('dev'))
 app.use(json())
 app.use(urlencoded({ extended: false }))
 app.use(cors(options))
-// app.use(passport.initialize())
 app.set('proxy', 1)
 
 app.get('/', (_req, res) => {

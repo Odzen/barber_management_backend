@@ -37,6 +37,7 @@ export default class UsersService {
 		const user = await this.prisma.user.findUnique({
 			where: { email },
 		})
+
 		return user
 	}
 
@@ -46,7 +47,6 @@ export default class UsersService {
 		const newUser = await this.prisma.user.create({
 			data: { ...user, password: hashedPassword, birthDate },
 		})
-		// delete password from newUser to return it, using typescript
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { password, ...newUserWithoutPassword } = newUser

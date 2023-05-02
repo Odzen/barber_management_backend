@@ -1,5 +1,8 @@
+import { ROLE } from '@prisma/client'
 import { Router } from 'express'
+import passport from 'passport'
 
+import { checkAdminRole } from '../middlewares/auth.handler'
 import validationHandler from '../middlewares/validator.handler'
 import {
 	getUserSchema,
@@ -14,6 +17,7 @@ const userService = new UsersService()
 
 router.get(
 	'/',
+	passport.authenticate('jwt', { session: false }),
 	validationHandler(queryUserSchema, 'query'),
 	async (req, res, next) => {
 		try {
@@ -44,6 +48,7 @@ router.get(
 
 router.get(
 	'/:id',
+	passport.authenticate('jwt', { session: false }),
 	validationHandler(getUserSchema, 'params'),
 	async (req, res, next) => {
 		try {
@@ -75,6 +80,7 @@ router.post(
 
 router.patch(
 	'/:id',
+	passport.authenticate('jwt', { session: false }),
 	validationHandler(updateUserSchema, 'body'),
 	async (req, res, next) => {
 		try {
@@ -92,17 +98,22 @@ router.patch(
 	}
 )
 
-router.delete('/:id', async (req, res, next) => {
-	try {
-		const { id } = req.params
-		const user = await userService.delete(id)
-		res.json({
-			message: 'user deleted',
-			data: user,
-		})
-	} catch (error) {
-		next(error)
+router.delete(
+	'/:id',
+	passport.authenticate('jwt', { session: false }),
+	checkAdminRole(ROLE.ADMIN),
+	async (req, res, next) => {
+		try {
+			const { id } = req.params
+			const user = await userService.delete(id)
+			res.json({
+				message: 'user deleted',
+				data: user,
+			})
+		} catch (error) {
+			next(error)
+		}
 	}
-})
+)
 
 export default router
