@@ -59,10 +59,11 @@ router.post(
 	'/',
 	validationHandler(createUserSchema, 'body'),
 	async (req, res) => {
-		const body = req.body
+		const { body } = req
+		const user = await userService.create(body)
 		res.json({
-			message: 'created',
-			data: body,
+			message: 'user created',
+			data: user,
 		})
 	}
 )

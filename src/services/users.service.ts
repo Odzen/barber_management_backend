@@ -1,5 +1,6 @@
 import { notFound } from '@hapi/boom'
 import { PrismaClient, User } from '@prisma/client'
+import { hash } from 'bcrypt'
 
 interface Options {
 	skip?: number
@@ -28,9 +29,18 @@ export default class UsersService {
 		return user
 	}
 
+	async findByEmail(email: string) {
+		const user = await this.prisma.user.findUnique({
+			where: { email },
+		})
+		return user
+	}
+
 	async create(user: User) {
+		const hashedPassword = await hash(user.password, 10)
+		const birthDate = new Date(user.birthDate).toISOString()
 		return await this.prisma.user.create({
-			data: user,
+			data: { ...user, password: hashedPassword, birthDate },
 		})
 	}
 

@@ -26,7 +26,7 @@ RUN npm prune --omit=dev --legacy-peer-deps
 FROM base AS builder
 COPY --from=dependencies --chown=node:node /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node . .
-RUN yarn prisma migrate
+# RUN yarn migrate
 RUN yarn build
 
 ##############

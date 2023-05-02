@@ -2,6 +2,7 @@ import { urlencoded } from 'body-parser'
 import cors from 'cors'
 import express, { json } from 'express'
 import morgan from 'morgan'
+import passport from 'passport'
 
 import { __prod__ } from './constants'
 import {
@@ -37,6 +38,8 @@ const options = {
 	credentials: true,
 }
 
+app.use(passport.initialize())
+
 // Middlewares
 app.set('proxy', 1)
 app.use(cors(options))
@@ -49,7 +52,6 @@ app.get('/', (_req, res) => {
 })
 
 routerApi(app)
-app.use('/api', routerApi)
 
 app.use(logErrors)
 app.use(boomErrorHandler)

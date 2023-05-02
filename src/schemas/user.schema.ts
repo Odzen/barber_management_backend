@@ -7,7 +7,7 @@ const name = Joi.string().min(3).max(30)
 const documentNumber = Joi.string().min(3).max(30)
 const phone = Joi.string().min(3).max(30)
 const birthDate = Joi.date().iso()
-const urlImage = Joi.string().uri()
+const urlImg = Joi.string().base64()
 const email = Joi.string().email()
 const role = Joi.string().valid('ADMIN', 'BARBER', 'CUSTOMER')
 const state = Joi.string().valid('ACTIVE', 'INACTIVE')
@@ -19,7 +19,7 @@ const createUserSchema = Joi.object({
 	email: email.required(),
 	phone: phone.required(),
 	birthDate: birthDate.required(),
-	urlImage: urlImage.required(),
+	urlImg: urlImg.required(),
 	state: state,
 	role: role,
 	password: password.required(),
@@ -31,7 +31,7 @@ const updateUserSchema = Joi.object({
 	email: email,
 	phone: phone,
 	birthDate: birthDate,
-	urlImage: urlImage,
+	urlImg: urlImg,
 	state: state,
 	role: role,
 	password: password,
