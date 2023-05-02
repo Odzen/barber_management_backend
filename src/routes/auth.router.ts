@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import passport from 'passport'
-
 const router = Router()
 
 router.post(
@@ -8,6 +7,7 @@ router.post(
 	passport.authenticate('local', { session: false }),
 	async (req, res, next) => {
 		try {
+			console.log('login')
 			const { user } = req
 			res.json({
 				message: 'login success',

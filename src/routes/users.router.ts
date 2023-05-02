@@ -5,6 +5,7 @@ import {
 	getUserSchema,
 	createUserSchema,
 	queryUserSchema,
+	updateUserSchema,
 } from '../schemas/user.schema'
 import UsersService from '../services/users.service'
 
@@ -58,14 +59,50 @@ router.get(
 router.post(
 	'/',
 	validationHandler(createUserSchema, 'body'),
-	async (req, res) => {
-		const { body } = req
-		const user = await userService.create(body)
-		res.json({
-			message: 'user created',
-			data: user,
-		})
+	async (req, res, next) => {
+		try {
+			const { body } = req
+			const user = await userService.create(body)
+			res.json({
+				message: 'user created',
+				data: user,
+			})
+		} catch (error) {
+			next(error)
+		}
 	}
 )
+
+router.patch(
+	'/:id',
+	validationHandler(updateUserSchema, 'body'),
+	async (req, res, next) => {
+		try {
+			const { id } = req.params
+			const { body } = req
+
+			const user = await userService.update(id, body)
+			res.json({
+				message: 'user updated',
+				data: user,
+			})
+		} catch (error) {
+			next(error)
+		}
+	}
+)
+
+router.delete('/:id', async (req, res, next) => {
+	try {
+		const { id } = req.params
+		const user = await userService.delete(id)
+		res.json({
+			message: 'user deleted',
+			data: user,
+		})
+	} catch (error) {
+		next(error)
+	}
+})
 
 export default router

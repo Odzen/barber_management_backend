@@ -26,7 +26,11 @@ export default class UsersService {
 			where: { id },
 		})
 		if (!user) throw notFound('user not found')
-		return user
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { password, ...userWithoutPassword } = user
+
+		return userWithoutPassword
 	}
 
 	async findByEmail(email: string) {
@@ -39,9 +43,15 @@ export default class UsersService {
 	async create(user: User) {
 		const hashedPassword = await hash(user.password, 10)
 		const birthDate = new Date(user.birthDate).toISOString()
-		return await this.prisma.user.create({
+		const newUser = await this.prisma.user.create({
 			data: { ...user, password: hashedPassword, birthDate },
 		})
+		// delete password from newUser to return it, using typescript
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { password, ...newUserWithoutPassword } = newUser
+
+		return newUserWithoutPassword
 	}
 
 	async update(id: string, user: User) {

@@ -1,12 +1,12 @@
 import { unauthorized } from '@hapi/boom'
 import { compare } from 'bcrypt'
-import { Strategy } from 'passport-local'
+import { Strategy as LocalStrategy } from 'passport-local'
 
 import UserService from '../../services/users.service'
 
 const userService = new UserService()
 
-const LocalStrategy = new Strategy(
+const localStrategy = new LocalStrategy(
 	{
 		usernameField: 'email',
 		passwordField: 'password',
@@ -31,4 +31,4 @@ const LocalStrategy = new Strategy(
 	}
 )
 
-export default LocalStrategy
+export default localStrategy

@@ -2,7 +2,7 @@ import { urlencoded } from 'body-parser'
 import cors from 'cors'
 import express, { json } from 'express'
 import morgan from 'morgan'
-import passport from 'passport'
+// import passport from 'passport'
 
 import { __prod__ } from './constants'
 import {
@@ -11,6 +11,8 @@ import {
 	errorHandler,
 } from './middlewares/error.handler'
 import routerApi from './routes'
+
+import './auth'
 
 const app = express()
 
@@ -38,14 +40,13 @@ const options = {
 	credentials: true,
 }
 
-app.use(passport.initialize())
-
 // Middlewares
-app.set('proxy', 1)
-app.use(cors(options))
 app.use(morgan('dev'))
-app.use(urlencoded({ extended: false }))
 app.use(json())
+app.use(urlencoded({ extended: false }))
+app.use(cors(options))
+// app.use(passport.initialize())
+app.set('proxy', 1)
 
 app.get('/', (_req, res) => {
 	res.send(`Hello from Barber API ${__prod__ ? 'Production' : 'Development'}!`)
