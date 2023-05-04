@@ -8,10 +8,13 @@ import { ApolloServer } from 'apollo-server-express'
 
 import { __prod__ } from './constants'
 import resolvers from './resolvers'
-import { app } from './server'
+import app from './server'
 
 const httpServer = http.createServer(app)
-const typeDefs = readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8')
+const typeDefs = readFileSync(
+	path.join(__dirname, './schemas/schema.graphql'),
+	'utf8'
+)
 const orm = new PrismaClient()
 
 const port = parseInt(process.env.PORT) || 80

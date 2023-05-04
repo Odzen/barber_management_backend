@@ -5,7 +5,7 @@ CREATE TYPE "ROLE" AS ENUM ('ADMIN', 'BARBER', 'CUSTOMER');
 CREATE TYPE "STATE" AS ENUM ('ACTIVE', 'INACTIVE');
 
 -- CreateEnum
-CREATE TYPE "APPOINTMENTE_STATE" AS ENUM ('CANCELED', 'SCHEDULED', 'DONE');
+CREATE TYPE "APPOINTMENT_STATE" AS ENUM ('CANCELED', 'SCHEDULED', 'DONE');
 
 -- CreateEnum
 CREATE TYPE "SERVICE" AS ENUM ('HAIRCUT', 'BEARD');
@@ -38,7 +38,7 @@ CREATE TABLE "Attributes" (
 
 -- CreateTable
 CREATE TABLE "Service" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" "SERVICE" NOT NULL DEFAULT 'HAIRCUT',
     "price" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -49,7 +49,7 @@ CREATE TABLE "Service" (
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "documentNumber" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
@@ -58,6 +58,7 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "state" "STATE" NOT NULL DEFAULT 'ACTIVE',
     "role" "ROLE" NOT NULL DEFAULT 'CUSTOMER',
+    "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
@@ -66,9 +67,9 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Engagement" (
-    "administratorId" INTEGER NOT NULL,
-    "barberId" INTEGER NOT NULL,
-    "salary" INTEGER NOT NULL,
+    "administratorId" TEXT NOT NULL,
+    "barberId" TEXT NOT NULL,
+    "salary" DECIMAL(65,30) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
@@ -77,15 +78,16 @@ CREATE TABLE "Engagement" (
 
 -- CreateTable
 CREATE TABLE "Appointment" (
-    "customerId" INTEGER NOT NULL,
-    "barberId" INTEGER NOT NULL,
-    "serviceId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "customerId" TEXT NOT NULL,
+    "barberId" TEXT NOT NULL,
+    "serviceId" TEXT NOT NULL,
     "appointmentDate" TIMESTAMP(3) NOT NULL,
-    "state" "APPOINTMENTE_STATE" NOT NULL DEFAULT 'SCHEDULED',
+    "state" "APPOINTMENT_STATE" NOT NULL DEFAULT 'SCHEDULED',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
-    CONSTRAINT "Appointment_pkey" PRIMARY KEY ("customerId","barberId")
+    CONSTRAINT "Appointment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

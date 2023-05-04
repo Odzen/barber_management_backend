@@ -44,7 +44,7 @@ enum STATE {
   INACTIVE
 }
 
-enum APPOINTMENTE_STATE {
+enum APPOINTMENT_STATE {
   CANCELED
   SCHEDULED
   DONE
@@ -56,7 +56,7 @@ enum SERVICE {
 }
 
 model Service {
-  id          Int           @id @default(autoincrement())
+  id          String        @id @default(uuid())
   name        SERVICE       @default(HAIRCUT)
   price       Int
   createdAt DateTime  @default(now())
@@ -65,11 +65,11 @@ model Service {
 }
 
 model User {
-  id                  Int           @id @default(autoincrement())
+  id                  String        @id @default(uuid())
   name                String
   documentNumber      String        @unique
   phone               String        @unique
-  birthDate           DateTime
+  birthDate           DateTime      @db.Date
   urlImg              String?
   email               String        @unique
   state               STATE         @default(ACTIVE)
@@ -84,26 +84,26 @@ model User {
 }
 
 model Engagement {
-  administratorId Int
+  administratorId String
   administrator   User @relation("administrator", fields: [administratorId], references: [id])
-  barberId        Int
+  barberId        String
   barber          User @relation("barber", fields: [barberId], references: [id])
-  salary          Int
+  salary          Decimal
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   @@id([administratorId, barberId])
 }
 
 model Appointment {
-  customerId      Int
+  id              String             @id @default(uuid())
+  customerId      String
   customer        User               @relation("customer", fields: [customerId], references: [id])
-  barberId        Int
+  barberId        String
   barber          User               @relation("barber", fields: [barberId], references: [id])
-  serviceId       Int
+  serviceId       String
   service         Service            @relation(fields: [serviceId], references: [id])
   appointmentDate DateTime
-  state           APPOINTMENTE_STATE @default(SCHEDULED)
+  state           APPOINTMENT_STATE @default(SCHEDULED)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  @@id([customerId, barberId])
 }
