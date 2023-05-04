@@ -37,5 +37,5 @@ COPY --from=pruned-dependencies --chown=node:node /usr/src/app/node_modules ./no
 COPY --from=builder --chown=node:node /usr/src/app/dist ./dist
 
 USER node
-EXPOSE 3000
+EXPOSE 8080
 CMD ["yarn", "start"]
