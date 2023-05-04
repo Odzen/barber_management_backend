@@ -19,6 +19,12 @@
 		"experimentalDecorators": true,
 		"resolveJsonModule": true
 	},
-	"exclude": ["**/*.spec.ts", "node_modules", "tmp"],
+	"exclude": [
+		"**/*.spec.ts",
+		"node_modules",
+		"tmp",
+		"./src/__test__/",
+		"./*js"
+	],
 	"include": ["./*.ts", "./src/**/*.ts"]
 }

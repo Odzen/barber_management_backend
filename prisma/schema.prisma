@@ -9,7 +9,7 @@ generator client {
 }
 
 model Avocado {
-  id        String       @id @default(uuid())
+  id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
@@ -22,18 +22,88 @@ model Avocado {
 }
 
 model Attributes {
-  id          String     @id @default(uuid())
+  id          String  @id @default(uuid())
   description String?
   shape       String?
   hardiness   String?
   taste       String?
   avocado     Avocado @relation(fields: [avocadoId], references: [id])
-  avocadoId   String @unique
+  avocadoId   String  @unique
+}
+
+//Real models
+
+enum ROLE {
+  ADMIN
+  BARBER
+  CUSTOMER
+}
+
+enum STATE {
+  ACTIVE
+  INACTIVE
+}
+
+enum APPOINTMENT_STATE {
+  CANCELED
+  SCHEDULED
+  DONE
+}
+
+enum SERVICE {
+  HAIRCUT
+  BEARD
+}
+
+model Service {
+  id          String        @id @default(uuid())
+  name        SERVICE       @default(HAIRCUT)
+  price       Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  Appointment Appointment[]
 }
 
 model User {
-  id        String      @id @default(uuid())
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id                  String        @id @default(uuid())
+  name                String
+  documentNumber      String        @unique
+  phone               String        @unique
+  birthDate           DateTime      @db.Date
+  urlImg              String?
+  email               String        @unique
+  state               STATE         @default(ACTIVE)
+  role                ROLE          @default(CUSTOMER)
+  password            String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  EngagementBarber    Engagement[]  @relation("barber")
+  EngagementAdmin     Engagement[]  @relation("administrator")
+  AppointmentBarber   Appointment[] @relation("barber")
+  AppointmentCustomer Appointment[] @relation("customer")
+}
+
+model Engagement {
+  administratorId String
+  administrator   User @relation("administrator", fields: [administratorId], references: [id])
+  barberId        String
+  barber          User @relation("barber", fields: [barberId], references: [id])
+  salary          Decimal
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  @@id([administratorId, barberId])
+}
+
+model Appointment {
+  id              String             @id @default(uuid())
+  customerId      String
+  customer        User               @relation("customer", fields: [customerId], references: [id])
+  barberId        String
+  barber          User               @relation("barber", fields: [barberId], references: [id])
+  serviceId       String
+  service         Service            @relation(fields: [serviceId], references: [id])
+  appointmentDate DateTime
+  state           APPOINTMENT_STATE @default(SCHEDULED)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
