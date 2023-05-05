@@ -15,5 +15,10 @@ describe("Testing the server", () => {
     expect(res.status).toBe(200);
   });
 
- 
+  test("Morgan middleware is being used", async () => {
+    const morganSpy = jest.fn();
+    app.use(morgan("dev"));
+    await request(app).get("/");
+    expect(morganSpy.mock.calls.length > 0).toBe(false);
+  });
 });
