@@ -26,7 +26,6 @@ RUN npm prune --omit=dev --legacy-peer-deps
 FROM base AS builder
 COPY --from=dependencies --chown=node:node /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node . .
-# RUN yarn migrate
 RUN yarn build
 
 ##############
@@ -37,5 +36,5 @@ COPY --from=pruned-dependencies --chown=node:node /usr/src/app/node_modules ./no
 COPY --from=builder --chown=node:node /usr/src/app/dist ./dist
 
 USER node
-EXPOSE 5000
+EXPOSE 3000
 CMD ["yarn", "start"]
