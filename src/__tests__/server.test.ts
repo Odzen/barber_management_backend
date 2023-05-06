@@ -2,11 +2,12 @@ import { jest, expect, describe, test } from "@jest/globals";
 import app from "../server";
 import request from "supertest";
 import morgan from "morgan";
-
+const port = parseInt(process.env.PORT) || 80
 describe("Testing the server", () => {
 //probando el inicio del servidor
   test("Server starts successfully", async () => {
-    const server = await app.listen(3000);
+    console.log(port)
+    const server = await app.listen( port);
     expect(server).toBeDefined();
     server.close();
   });
