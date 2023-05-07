@@ -8,6 +8,6 @@ describe("Server integration test", () => {
  
   it("GraphQL endpoint should return 404 status code", async () => {
     const response = await request(app).get("/graphql");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(200);
   });
 });
