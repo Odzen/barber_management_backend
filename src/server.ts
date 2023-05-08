@@ -41,8 +41,8 @@ const options = {
 
 // Middlewares
 app.use(morgan('dev'))
-app.use(json())
-app.use(urlencoded({ extended: false }))
+app.use(json({limit: '50mb'}))
+app.use(urlencoded({limit: '50mb', extended: false }))
 app.use(cors(options))
 app.set('proxy', 1)
 
