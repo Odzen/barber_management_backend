@@ -3,7 +3,7 @@
 import Joi from 'joi'
 
 const id = Joi.string().uuid()
-const name = Joi.string().min(3).max(30)
+const name = Joi.string().min(3).max(60)
 const documentNumber = Joi.string().min(3).max(30)
 const phone = Joi.string().min(3).max(30)
 const birthDate = Joi.date().iso()
