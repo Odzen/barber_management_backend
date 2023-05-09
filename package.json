@@ -14,7 +14,8 @@
 		"lint": "eslint \"src/**/*.ts\"",
 		"prettier": "prettier \"src/**/*.ts\"",
 		"migrate": "prisma migrate dev --name \"init\" --preview-feature",
-		"test:unit": "jest --verbose ./__tests__"
+		"test:unit": "jest --verbose ./__tests__",
+		"sonar": "sonar-scanner"
 	},
 	"lint-staged": {
 		"**/*": "yarn lint",
@@ -69,6 +70,7 @@
 		"jest-mock-extended": "^2.0.4",
 		"prettier": "^2.8.7",
 		"prisma": "^4.11.0",
+		"sonarqube-scanner": "^3.0.1",
 		"ts-jest": "^27.0.7",
 		"typescript": "^5.0.2"
 	}
