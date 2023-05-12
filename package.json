@@ -45,12 +45,14 @@
 		"passport-local": "^1.0.0",
 		"prompt": "^1.2.0",
 		"rimraf": "^4.4.1",
+		"supertest": "^6.3.3",
 		"ts-node": "^10.2.1"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",
 		"@types/boom": "^7.3.2",
 		"@types/jest": "^27.0.x",
+		"@types/supertest": "^2.0.12",
 		"@types/jsonwebtoken": "^9.0.2",
 		"@types/morgan": "^1.9.4",
 		"@types/passport": "^1.0.12",
