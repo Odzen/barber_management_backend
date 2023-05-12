@@ -31,14 +31,6 @@ jobs:
           echo '${{ steps.scan.outputs }}' > output.json
           cat output.json
 
-        # Tried to print it with a loop
-      - name: Echo Output SonarCloud
-        shell: bash
-        run: |
-          for key in "${!steps.scan.outputs[@]}"; do
-            echo "$key: ${steps.scan.outputs[$key]}"
-          done
-
         # Set env variable with the output so then I can send it to Slack
       - name: Set Output to env variable
         shell: bash
