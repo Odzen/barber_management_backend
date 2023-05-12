@@ -38,7 +38,7 @@ jobs:
 
       - name: Echo Output SonarCloud From Env
         shell: bash
-        run: echo "toJson(${{ env.OUTPUT_SONAR }})"
+        run: echo toJson(${{ env.OUTPUT_SONAR }})
 
   # messageSlack:
   #   runs-on: ubuntu-latest
