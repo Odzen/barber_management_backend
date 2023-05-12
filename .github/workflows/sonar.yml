@@ -24,10 +24,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
-      # print output of previous step which is an object, in a {key: value} format
-      # eho ${{ steps.scan.outputs }} will print [object Object], and this doesn't work
+
+      # Print outputs from previous step, considering that the output is an object
+      # echo "${{ steps.scan.outputs }}" WON'T WORK
       - name: Echo Output SonarCloud
-        run: echo "${{join(steps.scan.outputs.*, '\n')}}"
+        run: echo "${{ steps.scan.outputs.* }}"
 
       - name: Set Output to env variable
         shell: bash
