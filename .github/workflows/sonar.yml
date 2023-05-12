@@ -26,7 +26,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
       # print output of previous step, to help with debugging
       - name: Echo Output SonarCloud Scan
-        run: echo ${{ steps.scan.outputs.report-url }}
+        run: echo ${{ steps.scan.outputs }}
 
       - name: Set Output to env variable
         shell: bash
