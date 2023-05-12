@@ -25,20 +25,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
 
-        # Tried to parse as an Object
-      - name: Echo Output SonarCloud
-        run: |
-          echo ${{ steps.scan.outputs }} > output.json
-          cat output.json
+      # # TODO -> Send SonarCloud output to Slack
+      # Tried to parse as an Object
+      # - name: Echo Output SonarCloud
+      #   run: |
+      #     echo ${{ steps.scan.outputs }} > output.json
+      #     cat output.json
 
-        # Set env variable with the output so then I can send it to Slack
-      - name: Set Output to env variable
-        shell: bash
-        run: echo "OUTPUT_SONAR=$(echo ${{ steps.scan.outputs }})" >> $GITHUB_ENV
+      #   # Set env variable with the output so then I can send it to Slack
+      # - name: Set Output to env variable
+      #   shell: bash
+      #   run: echo "OUTPUT_SONAR=$(echo ${{ steps.scan.outputs }})" >> $GITHUB_ENV
 
-      - name: Echo Output SonarCloud From Env
-        shell: bash
-        run: echo ${{ toJson(env.OUTPUT_SONAR) }}
+      # - name: Echo Output SonarCloud From Env
+      #   shell: bash
+      #   run: echo ${{ toJson(env.OUTPUT_SONAR) }}
 
   # messageSlack:
   #   runs-on: ubuntu-latest
