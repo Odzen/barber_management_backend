@@ -28,7 +28,7 @@ jobs:
         # Tried to parse as an Object
       - name: Echo Output SonarCloud
         run: |
-          echo '${{ steps.scan.outputs }}' > output.json
+          echo ${{ steps.scan.outputs }} > output.json
           cat output.json
 
         # Set env variable with the output so then I can send it to Slack
