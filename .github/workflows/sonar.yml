@@ -27,21 +27,21 @@ jobs:
       # print output of previous step which is an object, in a {key: value} format
       # eho ${{ steps.scan.outputs }} will print [object Object], and this doesn't work
       - name: Echo Output SonarCloud
-        run: echo ${{join(steps.scan.outputs.*, '\n')}}
+        run: echo "${{join(steps.scan.outputs.*, '\n')}}"
 
       - name: Set Output to env variable
         shell: bash
         run: echo "OUTPUT_SONAR=$(echo ${{ steps.scan.outputs }})" >> $GITHUB_ENV
 
       - name: Echo Output SonarCloud From Env
-        run: echo ${{ env.OUTPUT_SONAR }}
+        run: echo "${{ env.OUTPUT_SONAR }}"
 
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_MESSAGE: ${{join(steps.scan.outputs.*, '\n')}}
-          SLACK_TITLE: Sonar Results
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # - name: Slack Notification
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_MESSAGE: ${{join(steps.scan.outputs.*, '\n')}}
+      #     SLACK_TITLE: Sonar Results
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   # messageSlack:
   #   runs-on: ubuntu-latest
