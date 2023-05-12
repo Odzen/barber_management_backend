@@ -19,7 +19,23 @@ jobs:
       - name: Test and coverage
         run: yarn jest --coverage
       - name: SonarCloud Scan
+        id: scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
+      # print output of previous step, to help with debugging
+      - name: SonarCloud Scan
+        run: echo ${{ steps.scan.outputs.report-url }}
+
+  # messageSlack:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Notification Slack
+  #       uses: rtCamp/action-slack-notify@v2
+  #       env:
+  #         SLACK_CHANNEL: github
+  #         SLACK_TITLE: Backend
+  #         SLACK_USERNAME: BotRepo
+  #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #         SLACK_MESSAGE: 'Backend has been updated!'
