@@ -27,10 +27,12 @@ jobs:
 
         # Tried to parse as an Object
       - name: Echo Output SonarCloud
+        shell: bash
         run: echo '${{ steps.scan.outputs | toJSONString }}'
 
         # Tried to print it with a loop
       - name: Echo Output SonarCloud
+        shell: bash
         run: |
           for key in "${!steps.scan.outputs[@]}"; do
             echo "$key: ${steps.scan.outputs[$key]}"
@@ -42,6 +44,7 @@ jobs:
         run: echo "OUTPUT_SONAR=$(echo ${{ steps.scan.outputs }})" >> $GITHUB_ENV
 
       - name: Echo Output SonarCloud From Env
+        shell: bash
         run: echo "toJson(${{ env.OUTPUT_SONAR }})"
 
   # messageSlack:
