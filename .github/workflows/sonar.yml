@@ -36,6 +36,13 @@ jobs:
       - name: Echo Output SonarCloud From Env
         run: echo ${{ env.OUTPUT_SONAR }}
 
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_MESSAGE: ${{join(steps.scan.outputs.*, '\n')}}
+          SLACK_TITLE: Sonar Results
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
   # messageSlack:
   #   runs-on: ubuntu-latest
   #   steps:
