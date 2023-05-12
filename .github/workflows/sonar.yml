@@ -27,8 +27,9 @@ jobs:
 
         # Tried to parse as an Object
       - name: Echo Output SonarCloud
-        shell: bash
-        run: echo '${{ steps.scan.outputs | toJSONString }}'
+        run: |
+          echo '${{ steps.scan.outputs }}' > output.json
+          cat output.json
 
         # Tried to print it with a loop
       - name: Echo Output SonarCloud
