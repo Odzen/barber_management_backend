@@ -28,7 +28,7 @@ jobs:
       # Print outputs from previous step, considering that the output is an object
       # echo "${{ steps.scan.outputs }}" WON'T WORK
       - name: Echo Output SonarCloud
-        run: echo "${{ steps.scan.outputs.* }}"
+        run: echo '${{ toJson(steps.scan.outputs) }}'
 
       - name: Set Output to env variable
         shell: bash
