@@ -1,8 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import { jest, expect, describe, test } from '@jest/globals'
 import morgan from 'morgan'
 import request from 'supertest'
 
-import app from '../server'
+//import app from '../server'
+import app from '../../server'
 
 describe('Testing the server', () => {
 	//const port = parseInt(process.env.PORT) || 80

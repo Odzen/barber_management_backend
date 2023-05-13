@@ -3,7 +3,7 @@
 import { expect, it, describe, jest } from '@jest/globals'
 import { Request, Response, NextFunction } from 'express'
 
-import { logErrors, errorHandler } from '../middlewares/error.handler'
+import { logErrors, errorHandler } from '../../middlewares/error.handler'
 
 // probando que la función logErrors imprima el error proporcionado en la consola
 describe('logErrors middleware', () => {
