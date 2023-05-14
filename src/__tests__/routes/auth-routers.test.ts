@@ -13,7 +13,7 @@ const jwtSecret = process.env.JWT_SECRET_KEY || 'secret'
 describe('POST /login', () => {
 	//comprobando respuesta de la funcion router.post es la esperada
 	//con datos errados
-	test('should return 401 on invalid credentials', async () => {
+	test('should return 404 on invalid credentials', async () => {
 		const response = await request(app)
 			.post('/login')
 			.send({ email: 'invalid@example.com', password: 'invalidpassword' })
