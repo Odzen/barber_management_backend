@@ -33,6 +33,7 @@
 		"body-parser": "^1.19.0",
 		"copyfiles": "^2.4.1",
 		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
 		"eslint-plugin-jsx-a11y": "^6.7.1",
 		"eslint-plugin-react": "^7.32.2",
 		"express": "^4.17.1",
