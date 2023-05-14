@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@hapi/boom": "^10.0.1",
 		"@prisma/client": "^4.11.0",
+		"@types/express": "^4.17.17",
 		"@types/supertest": "^2.0.12",
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^6.0.0-alpha.120",
@@ -47,6 +48,7 @@
 		"prompt": "^1.2.0",
 		"rimraf": "^4.4.1",
 		"supertest": "^6.3.3",
+		"ts-mockito": "^2.6.1",
 		"ts-node": "^10.2.1"
 	},
 	"devDependencies": {
