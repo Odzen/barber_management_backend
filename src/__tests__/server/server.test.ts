@@ -7,11 +7,11 @@ import request from 'supertest'
 import app from '../../server'
 
 describe('Testing the server', () => {
-	//const port = parseInt(process.env.PORT) || 80
+	const port = parseInt(process.env.PORT) || 80
 	//probando el inicio del servidor
 	test('Server starts successfully', async () => {
 		//console.log(port)
-		const server = await app.listen(3000)
+		const server = await app.listen(port)
 		expect(server).toBeDefined()
 		server.close()
 	})
