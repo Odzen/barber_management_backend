@@ -3,7 +3,8 @@ import { beforeEach, it, expect, describe, jest } from '@jest/globals'
 import { User, ROLE } from '@prisma/client'
 import { Request, Response, NextFunction } from 'express'
 
-import { checkAdminRole } from '../middlewares/auth.handler'
+//import { checkAdminRole } from '../../middlewares/auth.handler'
+import { checkAdminRole } from '../../middlewares/auth.handler'
 // testing the function to checks the roles
 describe('checkAdminRole', () => {
 	let mockRequest: Partial<Request>

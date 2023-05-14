@@ -5,7 +5,7 @@ import { sign } from 'jsonwebtoken'
 import passport from 'passport'
 import request = require('supertest')
 
-import app from '../server'
+import app from '../../server'
 
 const router = Router()
 const jwtSecret = process.env.JWT_SECRET_KEY || 'secret'
