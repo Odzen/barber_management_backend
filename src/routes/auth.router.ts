@@ -10,7 +10,7 @@ const jwtSecret = process.env.JWT_SECRET_KEY || 'secret'
 router.post(
 	'/login',
 	passport.authenticate('local', { session: false }),
-	async (req, res, next) => {
+	(req, res, next) => {
 		try {
 			const user = req.user as User
 			const payloadJwt = {
