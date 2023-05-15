@@ -30,7 +30,7 @@ router.get(
 					skip: parseInt(skipReq) || 0,
 					take: parseInt(takeReq) || 10,
 					orderBy: {
-						[`${orderByKey ?? 'createdAt'}`]: req.query.orderDirection || 'asc',
+						[`${orderByKey ?? 'createdAt'}`]: req.query.orderDirection ?? 'asc',
 					},
 				}
 			}
