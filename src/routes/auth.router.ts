@@ -3,7 +3,6 @@ import { Router } from 'express'
 import { sign } from 'jsonwebtoken'
 import passport from 'passport'
 
-
 const router = Router()
 
 const jwtSecret = process.env.JWT_SECRET_KEY || 'secret'
@@ -11,7 +10,7 @@ const jwtSecret = process.env.JWT_SECRET_KEY || 'secret'
 router.post(
 	'/login',
 	passport.authenticate('local', { session: false }),
-	async (req, res, next) => {
+	(req, res, next) => {
 		try {
 			const user = req.user as User
 			const payloadJwt = {
