@@ -19,6 +19,7 @@ router.get(
 			const { id } = req.params
 			const user = await userService.findOne(id)
 			res.json(user)
+			return
 		} catch (error) {
 			next(error)
 		}
