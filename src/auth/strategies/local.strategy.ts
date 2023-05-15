@@ -11,7 +11,7 @@ const localStrategy = new LocalStrategy(
 		usernameField: 'email',
 		passwordField: 'password',
 	},
-	async (email, password, done) => {
+	async (email, password, done): Promise<void> => {
 		try {
 			const user = await userService.findByEmail(email)
 			if (!user) {

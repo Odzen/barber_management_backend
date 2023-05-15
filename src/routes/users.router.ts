@@ -1,5 +1,5 @@
 import { ROLE } from '@prisma/client'
-import { Router } from 'express'
+import { Router, RequestHandler } from 'express'
 import passport from 'passport'
 
 import { checkAdminRole } from '../middlewares/auth.handler'
@@ -19,7 +19,7 @@ router.get(
 	'/',
 	passport.authenticate('jwt', { session: false }),
 	validationHandler(queryUserSchema, 'query'),
-	async (req, res, next) => {
+	(async (req, res, next) => {
 		try {
 			let options = {}
 			if (req.query) {
@@ -43,14 +43,14 @@ router.get(
 		} catch (error) {
 			next(error)
 		}
-	}
+	}) as RequestHandler
 )
 
 router.get(
 	'/:id',
 	passport.authenticate('jwt', { session: false }),
 	validationHandler(getUserSchema, 'params'),
-	async (req, res, next) => {
+	(async (req, res, next) => {
 		try {
 			const { id } = req.params
 			const user = await userService.findOne(id)
@@ -58,31 +58,31 @@ router.get(
 		} catch (error) {
 			next(error)
 		}
-	}
+	}) as RequestHandler
 )
 
-router.post(
-	'/',
-	validationHandler(createUserSchema, 'body'),
-	async (req, res, next) => {
-		try {
-			const { body } = req
-			const user = await userService.create(body)
-			res.json({
-				message: 'user created',
-				data: user,
-			})
-		} catch (error) {
-			next(error)
-		}
+router.post('/', validationHandler(createUserSchema, 'body'), (async (
+	req,
+	res,
+	next
+) => {
+	try {
+		const { body } = req
+		const user = await userService.create(body)
+		res.json({
+			message: 'user created',
+			data: user,
+		})
+	} catch (error) {
+		next(error)
 	}
-)
+}) as RequestHandler)
 
 router.patch(
 	'/:id',
 	passport.authenticate('jwt', { session: false }),
 	validationHandler(updateUserSchema, 'body'),
-	async (req, res, next) => {
+	(async (req, res, next) => {
 		try {
 			const { id } = req.params
 			const { body } = req
@@ -95,14 +95,14 @@ router.patch(
 		} catch (error) {
 			next(error)
 		}
-	}
+	}) as RequestHandler
 )
 
 router.delete(
 	'/:id',
 	passport.authenticate('jwt', { session: false }),
 	checkAdminRole(ROLE.ADMIN),
-	async (req, res, next) => {
+	(async (req, res, next) => {
 		try {
 			const { id } = req.params
 			const user = await userService.delete(id)
@@ -113,7 +113,7 @@ router.delete(
 		} catch (error) {
 			next(error)
 		}
-	}
+	}) as RequestHandler
 )
 
 export default router

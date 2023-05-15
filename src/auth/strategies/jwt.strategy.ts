@@ -7,7 +7,7 @@ const options = {
 	secretOrKey: jwtSecret,
 }
 
-const jwtStrategy = new JwtStrategy(options, async (payload, done) => {
+const jwtStrategy = new JwtStrategy(options, (payload, done) => {
 	try {
 		done(null, payload)
 	} catch (error) {
