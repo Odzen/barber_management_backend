@@ -1,10 +1,6 @@
 import { test, expect, jest, describe } from '@jest/globals'
 import express, { Router } from 'express'
 import passport from 'passport'
-// eslint-disable-next-line import/order, import/no-duplicates
-import request from 'supertest'
-
-// eslint-disable-next-line import/no-duplicates
 import supertest from 'supertest'
 
 import UsersService from '../../services/users.service'
@@ -36,7 +32,7 @@ describe('User Routes', () => {
 	test('debería llamar a next con el error si ocurre un error en la búsqueda del usuario', async () => {
 		const error = new Error('Error al buscar el usuario')
 		jest.spyOn(userService, 'findOne').mockRejectedValue(error)
-		const response = await request(app).get('/123')
+		const response = await supertest(app).get('/123')
 		expect(response.status).toBe(500)
 		expect(response.body).toBeDefined()
 	})

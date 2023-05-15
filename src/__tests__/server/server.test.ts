@@ -11,7 +11,7 @@ describe('Testing the server', () => {
 	//probando el inicio del servidor
 	test('Server starts successfully', async () => {
 		//console.log(port)
-		const server = await app.listen(port)
+		const server = app.listen(port)
 		expect(server).toBeDefined()
 		server.close()
 	})
