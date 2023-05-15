@@ -1,29 +1,13 @@
 import { test, expect, jest, describe } from '@jest/globals'
-import express, { Router } from 'express'
-import passport from 'passport'
+import express from 'express'
 import supertest from 'supertest'
 
+import router from '../../routes'
 import UsersService from '../../services/users.service'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
-const router = Router()
 const userService = new UsersService()
-
-//verificando la optencion de usurios por id en la ruta get/:id
-router.get(
-	'/:id',
-	passport.authenticate('jwt', { session: false }),
-	async (req, res, next) => {
-		try {
-			const { id } = req.params
-			const user = await userService.findOne(id)
-			return res.json(user)
-		} catch (error) {
-			return next(error)
-		}
-	}
-)
 
 const app = express()
 app.use('/', router)
