@@ -83,7 +83,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [lint, prettier, build]
+    timeout-minutes: 30
+    needs: [lint, prettier, test, build]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
