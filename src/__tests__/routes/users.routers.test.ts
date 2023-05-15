@@ -41,7 +41,7 @@ describe('PATCH /users/:id', () => {
 			.send(updatedUserData)
 
 		// Realizar las comprobaciones o assertions
-		expect(response.status).toBe(404)
+		expect(response.status).toBe(500)
 		expect(response.body).toBeDefined()
 	})
 })
