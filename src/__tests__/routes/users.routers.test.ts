@@ -10,7 +10,7 @@ import supertest from 'supertest'
 import UsersService from '../../services/users.service'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config()
+//require('dotenv').config()
 const router = Router()
 const userService = new UsersService()
 
