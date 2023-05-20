@@ -17,6 +17,7 @@ export default {
 	Query: {
 		avo: avo.findOne,
 		avos: avo.findAll,
+		service: service.findOne,
 		services: service.findAll,
 	},
 	Mutation: {

@@ -33,11 +33,12 @@ export async function findOne(
 	context: ResolverContext
 ): Promise<Service | null> {
 	try {
-		return context.orm.service.findUnique({
+		const service = context.orm.service.findUnique({
 			where: {
 				id: args.id,
 			},
 		})
+		return service
 	} catch (e) {
 		console.log('Error: ', e)
 		return null
