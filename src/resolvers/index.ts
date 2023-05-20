@@ -1,12 +1,13 @@
 import * as avo from './avocado.resolver'
 import * as scalars from './scalars'
+import * as service from './service.resolver'
 
-import type { Avocado } from '@prisma/client'
+import type { Avocado, Service } from '@prisma/client'
 
 export default {
 	...scalars,
 	BaseModel: {
-		__resolveType: (parent: Avocado) => {
+		__resolveType: (parent: Avocado | Service) => {
 			if (parent.name) {
 				return 'Avocado'
 			}
@@ -16,9 +17,11 @@ export default {
 	Query: {
 		avo: avo.findOne,
 		avos: avo.findAll,
+		services: service.findAll,
 	},
 	Mutation: {
 		createAvo: avo.createAvo,
+		createService: service.createService,
 	},
 	Avocado: avo.resolver,
 }

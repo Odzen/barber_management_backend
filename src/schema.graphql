@@ -1,12 +1,15 @@
 scalar DateTime
 
 type Query {
-	avos(skip: Int, take: Int, where: AvoWhereInput): [Avocado]!
+	avos(skip: Int, take: Int, where: WhereInput): [Avocado]!
 	avo(id: ID!): Avocado
+	services(skip: Int, take: Int, where: WhereInput): [Service]!
+	service(id: ID!): Service
 }
 
 type Mutation {
 	createAvo(data: AvoCreateInput!): Avocado!
+	createService(data: ServiceCreateInput!): Service!
 }
 
 interface BaseModel {
@@ -47,7 +50,7 @@ input AvoCreateInput {
 	taste: String
 }
 
-input AvoWhereInput {
+input WhereInput {
 	name: StringFilterInput
 	price: Float
 }
@@ -64,4 +67,25 @@ input StringFilterInput {
 	startsWith: String
 	endsWith: String
 	not: String
+}
+
+# Services
+enum SERVICE {
+	HAIRCUT
+	BEARD
+}
+
+type Service implements BaseModel {
+	id: ID!
+	createdAt: DateTime!
+	updatedAt: DateTime
+	deletedAt: DateTime
+
+	name: SERVICE!
+	price: Int!
+}
+
+input ServiceCreateInput {
+	name: String!
+	price: Int!
 }

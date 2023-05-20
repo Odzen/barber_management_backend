@@ -35,7 +35,7 @@ export default async function start() {
 	server.applyMiddleware({
 		app,
 		path: '/graphql',
-		cors: false,
+		cors: __prod__ ? true : false,
 	})
 
 	// Modified server startup
