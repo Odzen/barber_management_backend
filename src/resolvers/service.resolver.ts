@@ -16,11 +16,12 @@ export async function findAll(
 	context: ResolverContext
 ): Promise<Service[] | null> {
 	try {
-		return context.orm.service.findMany({
+		const services = await context.orm.service.findMany({
 			where: args.where,
 			skip: args.skip,
 			take: args.take,
 		})
+		return services
 	} catch (e) {
 		console.log('Error: ', e)
 		return null
@@ -33,7 +34,7 @@ export async function findOne(
 	context: ResolverContext
 ): Promise<Service | null> {
 	try {
-		const service = context.orm.service.findUnique({
+		const service = await context.orm.service.findUnique({
 			where: {
 				id: args.id,
 			},
