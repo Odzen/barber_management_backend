@@ -71,3 +71,34 @@ export async function createService(
 		return null
 	}
 }
+
+export async function updateService(
+	_parent: unknown,
+	{
+		id,
+		data,
+	}: {
+		id: string
+		data: Pick<Service, 'name' | 'price'>
+	},
+	{ orm }: ResolverContext
+): Promise<Service | null> {
+	const { name, price } = data
+
+	try {
+		const service = await orm.service.update({
+			where: {
+				id,
+			},
+			data: {
+				name,
+				price,
+			},
+		})
+
+		return service
+	} catch (e) {
+		console.log('Error updating Service: ', e)
+		return null
+	}
+}

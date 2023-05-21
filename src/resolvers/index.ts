@@ -23,6 +23,7 @@ export default {
 	Mutation: {
 		createAvo: avo.createAvo,
 		createService: service.createService,
+		updateService: service.updateService,
 	},
 	Avocado: avo.resolver,
 }

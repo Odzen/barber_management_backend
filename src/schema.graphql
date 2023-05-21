@@ -10,6 +10,7 @@ type Query {
 type Mutation {
 	createAvo(data: AvoCreateInput!): Avocado!
 	createService(data: ServiceCreateInput!): Service!
+	updateService(id: ID!, data: ServiceUpdateInput!): Service!
 }
 
 interface BaseModel {
@@ -88,4 +89,9 @@ type Service implements BaseModel {
 input ServiceCreateInput {
 	name: String!
 	price: Int!
+}
+
+input ServiceUpdateInput {
+	name: String
+	price: Int
 }
