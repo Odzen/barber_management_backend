@@ -8,11 +8,10 @@ import type {
 	User,
 } from '@prisma/client'
 
-export type ResolverParent = unknown
 export type ResolverContext = { orm: PrismaClient; user: User | undefined }
 
 export async function findAll(
-	_parent: ResolverParent,
+	_parent: unknown,
 	args: { where?: Prisma.AvocadoWhereInput; skip?: number; take?: number },
 	context: ResolverContext
 ): Promise<Avocado[] | null> {
@@ -31,7 +30,7 @@ export async function findAll(
 }
 
 export async function findOne(
-	_parent: ResolverParent,
+	_parent: unknown,
 	args: { id: string },
 	context: ResolverContext
 ): Promise<Avocado | null> {

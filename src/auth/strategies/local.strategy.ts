@@ -1,6 +1,6 @@
 import { unauthorized } from '@hapi/boom'
 import { compare } from 'bcrypt'
-import { Strategy as LocalStrategy } from 'passport-local'
+import { Strategy as LocalStrategy, IVerifyOptions } from 'passport-local'
 
 import UserService from '../../services/users.service'
 
@@ -11,7 +11,15 @@ const localStrategy = new LocalStrategy(
 		usernameField: 'email',
 		passwordField: 'password',
 	},
-	async (email, password, done) => {
+	(async (
+		email: string,
+		password: string,
+		done: (
+			error: any,
+			user?: Express.User | false,
+			options?: IVerifyOptions
+		) => void
+	) => {
 		try {
 			const user = await userService.findByEmail(email)
 			if (!user) {
@@ -26,7 +34,7 @@ const localStrategy = new LocalStrategy(
 		} catch (error) {
 			done(error, false)
 		}
-	}
+	}) as any
 )
 
 export default localStrategy
