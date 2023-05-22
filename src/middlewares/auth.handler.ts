@@ -1,6 +1,7 @@
 import { forbidden } from '@hapi/boom'
 import { ROLE, User } from '@prisma/client'
 import { Request, Response, NextFunction } from 'express'
+import passport from 'passport'
 
 function checkAdminRole(...roles: ROLE[]) {
 	return (req: Request, _res: Response, next: NextFunction) => {
@@ -18,4 +19,19 @@ function checkAdminRole(...roles: ROLE[]) {
 	}
 }
 
-export { checkAdminRole }
+async function getUserFromToken(token: string): Promise<User | undefined> {
+	return new Promise((resolve) => {
+		passport.authenticate(
+			'jwt',
+			{ session: false },
+			(err: any, user: User | undefined) => {
+				if (err || !user) {
+					return resolve(undefined)
+				}
+				resolve(user)
+			}
+		)({ headers: { authorization: token } })
+	})
+}
+
+export { checkAdminRole, getUserFromToken }

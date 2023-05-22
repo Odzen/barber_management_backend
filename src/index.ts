@@ -7,6 +7,7 @@ import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-express'
 
 import { __prod__ } from './constants'
+import { getUserFromToken } from './middlewares/auth.handler'
 import resolvers from './resolvers'
 import app from './server'
 
@@ -20,14 +21,16 @@ console.log('Connection to DB: ', process.env.DATABASE_URI)
 console.log('Production: ', __prod__)
 
 export default async function start() {
-	// Same ApolloServer initialization as before, plus the drain plugin.
 	const server = new ApolloServer({
 		typeDefs,
 		resolvers,
-		context: () => ({ orm }),
-		// context: ({ req }) => ({ orm, user: req.user }),
+		context: async ({ req }) => {
+			const token = req.headers.authorization || ''
+			const user = await getUserFromToken(token)
+
+			return { orm, user }
+		},
 		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-		// cache: 'bounded',
 	})
 
 	// More required logic for integrating with Express

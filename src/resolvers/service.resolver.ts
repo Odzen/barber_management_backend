@@ -1,3 +1,5 @@
+import { unauthorized } from '@hapi/boom'
+
 import type { PrismaClient, Service, Prisma, User } from '@prisma/client'
 
 export type ResolverContext = { orm: PrismaClient; user: User | undefined }
@@ -13,10 +15,13 @@ export const resolver: Record<keyof Service, (parent: Service) => unknown> = {
 export async function findAll(
 	_parent: unknown,
 	args: { where?: Prisma.ServiceWhereInput; skip?: number; take?: number },
-	context: ResolverContext
+	{ orm, user }: ResolverContext
 ): Promise<Service[] | null> {
 	try {
-		const services = await context.orm.service.findMany({
+		if (!user) {
+			throw unauthorized('User not found')
+		}
+		const services = await orm.service.findMany({
 			where: args.where,
 			skip: args.skip,
 			take: args.take,
@@ -24,17 +29,20 @@ export async function findAll(
 		return services
 	} catch (e) {
 		console.log('Error: ', e)
-		return null
+		throw e
 	}
 }
 
 export async function findOne(
 	_parent: unknown,
 	args: { id: string },
-	context: ResolverContext
+	{ orm, user }: ResolverContext
 ): Promise<Service | null> {
+	if (!user) {
+		throw unauthorized('User not found')
+	}
 	try {
-		const service = await context.orm.service.findUnique({
+		const service = await orm.service.findUnique({
 			where: {
 				id: args.id,
 			},
@@ -42,7 +50,7 @@ export async function findOne(
 		return service
 	} catch (e) {
 		console.log('Error: ', e)
-		return null
+		throw e
 	}
 }
 
@@ -53,8 +61,12 @@ export async function createService(
 	}: {
 		data: Pick<Service, 'name' | 'price'>
 	},
-	{ orm }: ResolverContext
+	{ orm, user }: ResolverContext
 ): Promise<Service | null> {
+	if (!user) {
+		throw unauthorized('User not found')
+	}
+
 	const { name, price } = data
 
 	try {
@@ -68,7 +80,7 @@ export async function createService(
 		return avo
 	} catch (e) {
 		console.log('Error creating Service: ', e)
-		return null
+		throw e
 	}
 }
 
@@ -81,8 +93,12 @@ export async function updateService(
 		id: string
 		data: Pick<Service, 'name' | 'price'>
 	},
-	{ orm }: ResolverContext
+	{ orm, user }: ResolverContext
 ): Promise<Service | null> {
+	if (!user) {
+		throw unauthorized('User not found')
+	}
+
 	const { name, price } = data
 
 	try {
@@ -99,6 +115,6 @@ export async function updateService(
 		return service
 	} catch (e) {
 		console.log('Error updating Service: ', e)
-		return null
+		throw e
 	}
 }
