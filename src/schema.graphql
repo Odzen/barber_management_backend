@@ -5,12 +5,20 @@ type Query {
 	avo(id: ID!): Avocado
 	services(skip: Int, take: Int, where: WhereInput): [Service]!
 	service(id: ID!): Service
+	appointments(
+		skip: Int
+		take: Int
+		where: AppointmentWhereInput
+	): [Appointment]!
+	appointment(id: ID!): Appointment
 }
 
 type Mutation {
 	createAvo(data: AvoCreateInput!): Avocado!
 	createService(data: ServiceCreateInput!): Service!
 	updateService(id: ID!, data: ServiceUpdateInput!): Service!
+	createAppointment(data: AppointmentCreateInput!): Appointment!
+	updateAppointment(id: ID!, data: AppointmentUpdateInput!): Appointment!
 }
 
 interface BaseModel {
@@ -94,4 +102,52 @@ input ServiceCreateInput {
 input ServiceUpdateInput {
 	name: String
 	price: Int
+}
+
+# Appointments
+enum APPOINTMENT_STATE {
+	CANCELED
+	SCHEDULED
+	DONE
+}
+
+type Appointment implements BaseModel {
+	id: ID!
+
+	customerId: ID
+	barberId: ID
+	serviceId: ID
+
+	appointmentDate: DateTime!
+	state: APPOINTMENT_STATE!
+
+	createdAt: DateTime!
+	updatedAt: DateTime
+	deletedAt: DateTime
+}
+
+input AppointmentCreateInput {
+	customerId: ID!
+	barberId: ID!
+	serviceId: ID!
+	appointmentDate: DateTime!
+	state: APPOINTMENT_STATE!
+}
+
+input AppointmentUpdateInput {
+	customerId: ID
+	barberId: ID
+	serviceId: ID
+	appointmentDate: DateTime
+	state: APPOINTMENT_STATE
+}
+
+input AppointmentWhereInput {
+	customerId: IdFilterInput
+	barberId: IdFilterInput
+	serviceId: IdFilterInput
+}
+
+input IdFilterInput {
+	equals: ID!
 }
