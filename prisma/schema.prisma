@@ -5,33 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  // binaryTargets = ["linux-musl-openssl-3.0.x"]
 }
-
-model Avocado {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-  deletedAt DateTime?
-
-  name       String
-  sku        String      @unique
-  price      Float
-  image      String
-  attributes Attributes?
-}
-
-model Attributes {
-  id          String  @id @default(uuid())
-  description String?
-  shape       String?
-  hardiness   String?
-  taste       String?
-  avocado     Avocado @relation(fields: [avocadoId], references: [id])
-  avocadoId   String  @unique
-}
-
-//Real models
 
 enum ROLE {
   ADMIN

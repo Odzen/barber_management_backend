@@ -1,8 +1,6 @@
 scalar DateTime
 
 type Query {
-	avos(skip: Int, take: Int, where: WhereInput): [Avocado]!
-	avo(id: ID!): Avocado
 	services(skip: Int, take: Int, where: WhereInput): [Service]!
 	service(id: ID!): Service
 	appointments(
@@ -14,7 +12,6 @@ type Query {
 }
 
 type Mutation {
-	createAvo(data: AvoCreateInput!): Avocado!
 	createService(data: ServiceCreateInput!): Service!
 	updateService(id: ID!, data: ServiceUpdateInput!): Service!
 	createAppointment(data: AppointmentCreateInput!): Appointment!
@@ -25,39 +22,9 @@ interface BaseModel {
 	id: ID!
 	createdAt: DateTime!
 	updatedAt: DateTime
-	deletedAt: DateTime
 }
 
-type Attributes {
-	description: String
-	shape: String
-	hardiness: String
-	taste: String
-}
-
-type Avocado implements BaseModel {
-	id: ID!
-	createdAt: DateTime!
-	updatedAt: DateTime
-	deletedAt: DateTime
-
-	name: String!
-	sku: String!
-	price: Float!
-	image: String!
-	attributes: Attributes!
-}
-
-input AvoCreateInput {
-	name: String!
-	price: Float!
-	sku: String!
-	image: String!
-	description: String
-	shape: String
-	hardiness: String
-	taste: String
-}
+# Global Filters
 
 input WhereInput {
 	name: StringFilterInput
@@ -78,6 +45,14 @@ input StringFilterInput {
 	not: String
 }
 
+input IdFilterInput {
+	equals: ID!
+}
+
+input DateFilterInput {
+	equals: DateTime!
+}
+
 # Services
 enum SERVICE {
 	HAIRCUT
@@ -88,7 +63,6 @@ type Service implements BaseModel {
 	id: ID!
 	createdAt: DateTime!
 	updatedAt: DateTime
-	deletedAt: DateTime
 
 	name: SERVICE!
 	price: Int!
@@ -123,7 +97,6 @@ type Appointment implements BaseModel {
 
 	createdAt: DateTime!
 	updatedAt: DateTime
-	deletedAt: DateTime
 }
 
 input AppointmentCreateInput {
@@ -148,12 +121,4 @@ input AppointmentWhereInput {
 	serviceId: IdFilterInput
 	state: StringFilterInput
 	appointmentDate: DateFilterInput
-}
-
-input IdFilterInput {
-	equals: ID!
-}
-
-input DateFilterInput {
-	equals: DateTime!
 }
