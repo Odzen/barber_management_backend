@@ -146,8 +146,14 @@ input AppointmentWhereInput {
 	customerId: IdFilterInput
 	barberId: IdFilterInput
 	serviceId: IdFilterInput
+	state: StringFilterInput
+	appointmentDate: DateFilterInput
 }
 
 input IdFilterInput {
 	equals: ID!
+}
+
+input DateFilterInput {
+	equals: DateTime!
 }

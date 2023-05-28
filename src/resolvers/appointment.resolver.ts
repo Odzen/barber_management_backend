@@ -20,7 +20,7 @@ export const resolver: Record<
 
 export async function findAll(
 	_parent: unknown,
-	args: { where?: Prisma.ServiceWhereInput; skip?: number; take?: number },
+	args: { where?: Prisma.AppointmentWhereInput; skip?: number; take?: number },
 	{ orm, user }: ResolverContext
 ): Promise<Appointment[] | null> {
 	try {
