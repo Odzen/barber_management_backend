@@ -24,14 +24,10 @@ enum APPOINTMENT_STATE {
   DONE
 }
 
-enum SERVICE {
-  HAIRCUT
-  BEARD
-}
 
 model Service {
   id          String        @id @default(uuid())
-  name        SERVICE       @default(HAIRCUT)
+  name        String
   price       Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt

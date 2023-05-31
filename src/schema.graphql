@@ -54,17 +54,12 @@ input DateFilterInput {
 }
 
 # Services
-enum SERVICE {
-	HAIRCUT
-	BEARD
-}
-
 type Service implements BaseModel {
 	id: ID!
 	createdAt: DateTime!
 	updatedAt: DateTime
 
-	name: SERVICE!
+	name: String!
 	price: Int!
 }
 
