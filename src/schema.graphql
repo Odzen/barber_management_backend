@@ -1,55 +1,30 @@
 scalar DateTime
 
 type Query {
-	avos(skip: Int, take: Int, where: WhereInput): [Avocado]!
-	avo(id: ID!): Avocado
 	services(skip: Int, take: Int, where: WhereInput): [Service]!
 	service(id: ID!): Service
+	appointments(
+		skip: Int
+		take: Int
+		where: AppointmentWhereInput
+	): [Appointment]!
+	appointment(id: ID!): Appointment
 }
 
 type Mutation {
-	createAvo(data: AvoCreateInput!): Avocado!
 	createService(data: ServiceCreateInput!): Service!
 	updateService(id: ID!, data: ServiceUpdateInput!): Service!
+	createAppointment(data: AppointmentCreateInput!): Appointment!
+	updateAppointment(id: ID!, data: AppointmentUpdateInput!): Appointment!
 }
 
 interface BaseModel {
 	id: ID!
 	createdAt: DateTime!
 	updatedAt: DateTime
-	deletedAt: DateTime
 }
 
-type Attributes {
-	description: String
-	shape: String
-	hardiness: String
-	taste: String
-}
-
-type Avocado implements BaseModel {
-	id: ID!
-	createdAt: DateTime!
-	updatedAt: DateTime
-	deletedAt: DateTime
-
-	name: String!
-	sku: String!
-	price: Float!
-	image: String!
-	attributes: Attributes!
-}
-
-input AvoCreateInput {
-	name: String!
-	price: Float!
-	sku: String!
-	image: String!
-	description: String
-	shape: String
-	hardiness: String
-	taste: String
-}
+# Global Filters
 
 input WhereInput {
 	name: StringFilterInput
@@ -70,19 +45,21 @@ input StringFilterInput {
 	not: String
 }
 
-# Services
-enum SERVICE {
-	HAIRCUT
-	BEARD
+input IdFilterInput {
+	equals: ID!
 }
 
+input DateFilterInput {
+	equals: DateTime!
+}
+
+# Services
 type Service implements BaseModel {
 	id: ID!
 	createdAt: DateTime!
 	updatedAt: DateTime
-	deletedAt: DateTime
 
-	name: SERVICE!
+	name: String!
 	price: Int!
 }
 
@@ -94,4 +71,49 @@ input ServiceCreateInput {
 input ServiceUpdateInput {
 	name: String
 	price: Int
+}
+
+# Appointments
+enum APPOINTMENT_STATE {
+	CANCELED
+	SCHEDULED
+	DONE
+}
+
+type Appointment implements BaseModel {
+	id: ID!
+
+	customerId: ID
+	barberId: ID
+	serviceId: ID
+
+	appointmentDate: DateTime!
+	state: APPOINTMENT_STATE!
+
+	createdAt: DateTime!
+	updatedAt: DateTime
+}
+
+input AppointmentCreateInput {
+	customerId: ID!
+	barberId: ID!
+	serviceId: ID!
+	appointmentDate: DateTime!
+	state: APPOINTMENT_STATE!
+}
+
+input AppointmentUpdateInput {
+	customerId: ID
+	barberId: ID
+	serviceId: ID
+	appointmentDate: DateTime
+	state: APPOINTMENT_STATE
+}
+
+input AppointmentWhereInput {
+	customerId: IdFilterInput
+	barberId: IdFilterInput
+	serviceId: IdFilterInput
+	state: StringFilterInput
+	appointmentDate: DateFilterInput
 }

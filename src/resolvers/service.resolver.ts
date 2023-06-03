@@ -70,14 +70,14 @@ export async function createService(
 	const { name, price } = data
 
 	try {
-		const avo = await orm.service.create({
+		const service = await orm.service.create({
 			data: {
 				name,
 				price,
 			},
 		})
 
-		return avo
+		return service
 	} catch (e) {
 		console.log('Error creating Service: ', e)
 		throw e
