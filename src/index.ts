@@ -15,7 +15,7 @@ const httpServer = http.createServer(app)
 const typeDefs = readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8')
 const orm = new PrismaClient()
 
-const port = parseInt(process.env.PORT) || 80
+const port = parseInt(process.env.PORT) || 30080//80
 
 console.log('Connection to DB: ', process.env.DATABASE_URI)
 console.log('Production: ', __prod__)
