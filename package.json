@@ -15,7 +15,6 @@
 		"prettier": "prettier \"src/**/*.ts\"",
 		"migrate": "prisma migrate dev --name \"init\" --preview-feature",
 		"test:unit": "jest --verbose ./__tests__"
-		
 	},
 	"lint-staged": {
 		"**/*": "yarn lint",
@@ -51,18 +50,17 @@
 	},
 	"devDependencies": {
 		"@hapi/boom": "^10.0.1",
-		"@prisma/client": "^4.11.0",
-		"@types/supertest": "^2.0.12",
+		"@prisma/client": "^4.15.0",
 		"@types/bcrypt": "^5.0.0",
 		"@types/boom": "^7.3.2",
 		"@types/jest": "^27.0.x",
-		"@types/supertest": "^2.0.12",
 		"@types/jsonwebtoken": "^9.0.2",
 		"@types/morgan": "^1.9.4",
 		"@types/passport": "^1.0.12",
 		"@types/passport-jwt": "^3.0.8",
 		"@types/passport-local": "^1.0.35",
 		"@types/prompt": "^1.1.1",
+		"@types/supertest": "^2.0.12",
 		"easygraphql-tester": "^6.0.1",
 		"eslint": "^8.40.0",
 		"eslint-config-airbnb": "^19.0.4",

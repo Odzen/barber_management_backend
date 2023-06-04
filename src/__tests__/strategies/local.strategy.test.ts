@@ -106,9 +106,7 @@ describe('localStrategy', () => {
 	test('should return error if an error occurs when searching for user by email', async () => {
 		const email = 'testbarbery.com'
 		userService.findByEmail(email)
-		const response = await supertest(app)
-			.post('/login')
-			.send({ email })
+		const response = await supertest(app).post('/login').send({ email })
 		expect(userService.findByEmail).toHaveBeenCalledWith(email)
 		expect(response.status).toBe(404)
 	})
@@ -120,7 +118,7 @@ describe('localStrategy', () => {
 		const done = jest.fn().mockImplementation(() => done(error, false))
 		const response = await supertest(app).post('/login').send({ email })
 		expect(userService.findByEmail).toHaveBeenCalledWith(email)
-		expect(response.status).toBe(404)	
+		expect(response.status).toBe(404)
 	})
 
 	// Prueba de configuración del enrutador

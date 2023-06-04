@@ -11,7 +11,12 @@ interface Options {
 }
 
 export default class UsersService {
+	static create(newUser: User): any {
+		throw new Error('Method not implemented.')
+	}
 	private prisma: PrismaClient
+	static delete: any
+	static findOne: any
 
 	constructor() {
 		this.prisma = new PrismaClient()
