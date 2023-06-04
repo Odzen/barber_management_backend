@@ -1,8 +1,8 @@
-# Barber Managment Backend
+# Barber management Backend
 
 ## Description
 
-Backend for Barber Managment using:
+Backend for Barber management using:
 
 - Typescript
 - Express
