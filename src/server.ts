@@ -41,13 +41,15 @@ const options = {
 
 // Middlewares
 app.use(morgan('dev'))
-app.use(json({limit: '50mb'}))
-app.use(urlencoded({limit: '50mb', extended: false }))
+app.use(json({ limit: '50mb' }))
+app.use(urlencoded({ limit: '50mb', extended: false }))
 app.use(cors(options))
 app.set('proxy', 1)
 
 app.get('/', (_req, res) => {
-	res.send(`Hello from Barber API ${__prod__ ? 'Production' : 'Development'}!`)
+	res.send(
+		`Hello from Barber API ${__prod__ ? 'Production' : 'Development'}!  :)`
+	)
 })
 
 routerApi(app)
