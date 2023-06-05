@@ -32,7 +32,7 @@ describe('errorHandler', () => {
 	})
 
 	test('should call next with error if validation fails', () => {
-		//const validationError = new Error('Validation error');
+	
 		schema.validate.mockReturnValue({ error: null })
 		const middleware = errorHandler(schema, 'property')
 		middleware(req, {} as any, next)
