@@ -47,9 +47,7 @@ app.use(cors(options))
 app.set('proxy', 1)
 
 app.get('/', (_req, res) => {
-	res.send(
-		`Hello from Barber API ${__prod__ ? 'Production' : 'Development'}!  :)`
-	)
+	res.send(`Hello from Barber API ${__prod__ ? 'Production' : 'Development'}! `)
 })
 
 routerApi(app)
