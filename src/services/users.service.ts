@@ -11,6 +11,8 @@ interface Options {
 }
 
 export default class UsersService {
+	static use: any
+	static findByEmail: any
 	static create(): any {
 		throw new Error('Method not implemented.')
 	}
