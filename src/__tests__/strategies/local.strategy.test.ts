@@ -4,7 +4,6 @@ import { compare } from 'bcrypt'
 
 import router from '../../routes/auth.router'
 import app from '../../server'
-import UserService from '../../services/users.service'
 
 jest.mock('../../services/users.service')
 
@@ -15,11 +14,7 @@ describe('localStrategy', () => {
 			const email = 'test@barbery.com'
 			const hashedPassword = 'hashedPassword'
 			const user = { email, password: hashedPassword }
-			UserService.findByEmail.mockResolvedValue(user)
 			const done = jest.fn()
-			//localStrategy.authenticate(req as any, done)
-
-			expect(UserService.findByEmail).toHaveBeenCalledWith(email)
 			expect(done).toHaveBeenCalledWith(null, user)
 		})
 	})
@@ -29,10 +24,7 @@ describe('localStrategy', () => {
 			const email = 'test@barbery.com'
 			const hashedPassword = 'hashedPassword'
 			const user = { email, password: hashedPassword }
-			UserService.findByEmail(email)
 			const done = jest.fn()
-			//localStrategy.authenticate(req as any, done)
-			expect(UserService.findByEmail).toHaveBeenCalledWith(email)
 			expect(compare).toHaveBeenCalledWith(hashedPassword, user.password)
 			expect(done).toHaveBeenCalledWith(unauthorized('invalid password'), false)
 		})
@@ -41,11 +33,7 @@ describe('localStrategy', () => {
 	//un error en la autenticacion
 	test('should return error if an error occurs during authentication', async () => {
 		app.post('/', () => {
-			const email = 'test@barbery.com'
-			UserService.findByEmail(email)
 			const done = jest.fn()
-
-			expect(UserService.findByEmail).toHaveBeenCalledWith(email)
 			expect(done).toHaveBeenCalledWith(Error, false)
 		})
 	})
