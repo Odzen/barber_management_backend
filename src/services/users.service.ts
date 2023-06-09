@@ -12,7 +12,7 @@ interface Options {
 
 export default class UsersService {
 	private prisma: PrismaClient
-
+	
 	constructor() {
 		this.prisma = new PrismaClient()
 	}

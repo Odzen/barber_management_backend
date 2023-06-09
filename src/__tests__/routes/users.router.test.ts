@@ -5,8 +5,6 @@ import supertest from 'supertest'
 import router from '../../routes'
 import UsersService from '../../services/users.service'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-
 const userService = new UsersService()
 
 const app = express()
